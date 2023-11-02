@@ -1,0 +1,141 @@
+.fondoLogo{
+    background-image: url("../imagenes/fondoLogin.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.overley{
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+background: rgba(0,0,0,0.5);
+}
+
+.fondoFormulario{
+background: rgba(0,0,0,.8);
+
+-webkit-box-shadow: 0px 0px 33px -4px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 0px 33px -4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 33px -4px rgba(255, 255, 255, 1);
+}
+
+.fondoFormulario input{
+    background: transparent;
+    border: none;
+    border-bottom: solid 3px cyan;
+    outline: none;
+}
+input:focus {
+    outline: none;
+    border: none;
+}
+.container_button{
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+.button_login{
+    padding: 10px 25px;
+    background: rgba(29, 29, 29, 0.9);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    letter-spacing: 2px;
+    transition: .3s ease;
+
+-webkit-box-shadow: 0px 0px 20px -4px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 0px 20px -4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 20px -4px rgba(255, 255, 255, 1);
+
+}
+.button_login:hover{
+    background: rgba(0,0,0, 1);
+}
+
+.text-logo{
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+label{
+    color: white;
+}
+input[type="text"]{
+color: white !important;
+    width: 100%;
+    border-radius: 8px;
+}
+input[type="submit"]{
+
+    padding: 10px 20px;
+    margin: 15px 0;
+    background: rgb(17, 161, 17);
+    border-radius: 8px;
+    border: none;
+    transition: ease .4s;
+    color: white;
+    
+}
+input[type="submit"]:hover {
+
+    background: rgb(6, 100, 6);
+
+}
+h2 {
+     color: aquamarine !important;
+    font-size: 18px;
+}
+
+small{
+    color:red;
+}
+
+
+#salida{
+    padding: 10px 20px;
+        margin: 15px 0;
+        background: rgb(161, 17, 17);
+        border-radius: 8px;
+        border: none;
+        transition: ease .4s;
+        color: white;
+}
+
+#salida:hover {
+    background: rgb(128, 11, 11);
+}
+.container_formularios{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-items: center;
+}
+
+.alert{
+    width: 100%;
+    padding: 5px 0px;
+    text-align: center;
+    margin: 8px 0;
+}
+.alert-success{
+    background-color: rgb(22, 180, 22);
+    color: white;
+}
+
+.alert-danger{
+    background-color: rgb(141, 10, 10);
+        color: white;
+}   
+
+label{
+    color: white !important;
+}
+
+input{
+    color: white !important;
+}
