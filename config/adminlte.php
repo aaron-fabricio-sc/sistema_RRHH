@@ -494,6 +494,14 @@ return [
 
             'submenu' => [
                 [
+                    'text'    => 'ADMINISTRAR PERMISOS',
+                    'icon'    => 'fas fa-fw fa-bell',
+                    "can" => 'admin.licenses.refuseLicense',
+
+                    'route'     => 'admin.licenses.allLicenses',
+
+                ],
+                [
                     'text'    => 'Solicitar permiso',
                     'icon'    => 'fas fa-fw fa-comment',
 

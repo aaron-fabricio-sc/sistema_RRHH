@@ -3,14 +3,14 @@
 @section('title', 'Licencias')
 
 @section('content_header')
-    <h1>Administrador de las licencias</h1>
+    <h1>Administrador de todas las licencias</h1>
 @stop
 
 @section('content')
 
 
 
-    <h4 class="text-info">Solicitud de las licencias</h4>
+    <h4 class="text-info">ADMINISTRADOR DE TODAS LAS LICENCIAS</h4>
     <div class="card fondo">
 
 
@@ -33,9 +33,10 @@
                     <thead>
                         <tr>
                             <th>Nº</th>
+                            <th>Empleado</th>
                             <th>Tipo de licencia</th>
                             <th>Detalles de licencia</th>
-                            {{--   <th>Empleado</th> --}}
+
                             <th class="text-success">Fecha de_empiezo</th>
                             <th class="text-danger">Fecha_final</th>
 
@@ -43,7 +44,7 @@
 
 
 
-                            {{--    @can('admin.licenses.viewConfirmDelete')
+                            @can('admin.licenses.viewConfirmDelete')
                                 <th class="text-danger">Eliminar</th>
                             @endcan
                             @can('admin.licenses.viewConfirmDelete')
@@ -51,57 +52,68 @@
                             @endcan
                             @can('admin.licenses.viewConfirmDelete')
                                 <th class="text-danger">Rechazar</th>
-                            @endcan --}}
+                            @endcan
 
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($licenses as $license)
+                        @foreach ($allLicenses as $license)
                             <tr>
                                 <td class="text-success">{{ $loop->index + 1 }}</td>
-                                <td>{{ $license->type_license }}</td>
-                                <td>{{ $license->description }}</td>
 
 
                                 @php
-                                    $result = DB::table('employees')
-                                        ->where('id', $license->pivot->employee_id)
+                                    $employee = DB::table('employees')
+                                        ->where('id', $license->employee_id)
                                         ->first();
                                 @endphp
 
-                                {{--    <td>{{ $result->name }} {{ $result->firts_last_name }}</td> --}}
+                                @php
+                                    $licenseDB = DB::table('licenses')
+                                        ->where('id', $license->license_id)
+                                        ->first();
+                                @endphp
 
 
                                 @php
-                                    $dateI = $license->pivot->start_date;
+                                    $dateI = $license->start_date;
 
                                     $newDateInitial = date('d-m-Y', strtotime($dateI));
 
-                                    $dateF = $license->pivot->final_date;
+                                    $dateF = $license->final_date;
 
                                     $newDateFinal = date('d-m-Y', strtotime($dateF));
 
                                 @endphp
 
+                                <td>{{ $employee->name }}</td>
+                                <td>{{ $licenseDB->type_license }}</td>
+                                <td>{{ $licenseDB->description }}</td>
+
+
+
+
+
+
 
                                 <td>{{ $newDateInitial }}</td>
                                 <td>{{ $newDateFinal }}</td>
                                 <td>
-                                    @if ($license->pivot->status_license === null)
+                                    @if ($license->status_license === null)
                                         <b class="text-info">Sin revisar</b>
                                     @endif
-                                    @if ($license->pivot->status_license === 1)
+                                    @if ($license->status_license === 1)
                                         <b class="text-danger">Rechazado</b>
                                     @endif
-                                    @if ($license->pivot->status_license === 2)
+                                    @if ($license->status_license === 2)
                                         <b class="text-success">Aceptado</b>
                                     @endif
 
 
                                 </td>
 
-                                {{-- 
+
                                 @can('admin.licenses.viewConfirmDelete')
                                     <td>
                                         <a href="{{ route('admin.licenses.viewConfirmDelete', $license->id) }}"
@@ -120,7 +132,7 @@
                                             class="btn btn-danger"><i class="fas fa-times"></i></a>
                                     </td>
                                 @endcan
- --}}
+
 
 
 
@@ -131,9 +143,11 @@
                     <tfoot>
                         <tr>
                             <th>Nº</th>
-                            <th>Nombre</th>
+                            <th>Empleado</th>
+
+                            <th>Tipo de Licencia</th>
                             <th>Descripción</th>
-                            {{--      <th>Empleado</th> --}}
+
                             <th class="text-success">Fecha de empiezo</th>
                             <th class="text-danger">Fecha final</th>
 
@@ -141,7 +155,7 @@
 
 
 
-                            {{--       @can('admin.licenses.viewConfirmDelete')
+                            @can('admin.licenses.viewConfirmDelete')
                                 <th class="text-danger">Eliminar</th>
                             @endcan
 
@@ -151,7 +165,7 @@
                             @can('admin.licenses.viewConfirmDelete')
                                 <th class="text-danger">Rechazar</th>
                             @endcan
- --}}
+
                         </tr>
                     </tfoot>
                 </table>

@@ -155,7 +155,7 @@ Route::get("/admin/licenses/confirmLicense/{data}", [LicenseController::class, '
 
 
 Route::get("/admin/licenses/refuseLicense/{data}", [LicenseController::class, 'refuseLicense'])->middleware(['auth', 'verified'])->name('admin.licenses.refuseLicense');
-
+Route::get("/admin/licenses/all-licenses", [LicenseController::class, 'allLicenses'])->middleware(['auth', 'verified'])->name('admin.licenses.allLicenses');
 
 Route::resource('admin/licenses', LicenseController::class)->middleware(['auth', 'verified'])->names('admin.licenses');
 

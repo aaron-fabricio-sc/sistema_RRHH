@@ -32,7 +32,6 @@ class LicenseController extends Controller
 
 
         $this->middleware("can:admin.licenses.requetsView")->only("requetsView");
-
         $this->middleware("can:admin.licenses.requets")->only("requets");
 
         $this->middleware("can:admin.licenses.activityLicenses")->only("activityLicenses");
@@ -43,6 +42,7 @@ class LicenseController extends Controller
         $this->middleware("can:admin.licenses.confirmLicense")->only("confirmLicense");
 
         $this->middleware("can:admin.licenses.refuseLicense")->only("refuseLicense");
+        $this->middleware("can:admin.licenses.refuseLicense")->only("allLicenses");
     }
     public function index()
     {
@@ -191,18 +191,22 @@ class LicenseController extends Controller
                 "final_date" => $final_date,
 
             ]);
-            return redirect()->route("admin.licenses.index")->with("message", "Solicitud enviada correctamente.");
+            return redirect()->route("admin.licenses.requetsView")->with("message", "Solicitud enviada correctamente.");
         }
     }
 
     public function activityLicenses()
     {
         $userId = Auth::id();
-
         $employee = Employee::where("user_id", $userId)->first();
 
-        $licenses = $employee->licenses()->withPivot('start_date', 'final_date', 'status_license', 'status_license', 'status')->get();
 
+        if (is_null($employee)) {
+            return redirect()->route("news.index")->with("message-danger", "No estas vinculado a un empleado.");
+        }
+
+
+        $licenses = $employee->licenses()->withPivot('start_date', 'final_date', 'status_license', 'status_license', 'status')->get();
 
 
 
@@ -211,14 +215,30 @@ class LicenseController extends Controller
     }
 
 
+
+    public function allLicenses()
+    {
+
+        $allLicenses = DB::table("employee_license")->get();
+
+
+        //        return $allLicenses;
+
+
+
+        return view("admin.license.allLicenses", compact("allLicenses"));
+    }
+
     public function confirmLicense($data)
     {
-        $decodedData = json_decode(base64_decode($data));
 
-        $idEmployee = $decodedData->pivot->employee_id;
-        $idLicense = $decodedData->pivot->license_id;
-        $dateInit = $decodedData->pivot->start_date;
-        $dateFinal = $decodedData->pivot->final_date;
+
+        $decodedData = json_decode(base64_decode($data));
+        // return $decodedData;
+        $idEmployee = $decodedData->employee_id;
+        $idLicense = $decodedData->license_id;
+        $dateInit = $decodedData->start_date;
+        $dateFinal = $decodedData->final_date;
 
 
 
@@ -233,17 +253,17 @@ class LicenseController extends Controller
 
 
 
-        return redirect()->route("admin.licenses.activityLicenses")->with("message", "Solicitud  aceptada.");
+        return redirect()->route("admin.licenses.allLicenses")->with("message", "Solicitud  aceptada.");
     }
 
     public function refuseLicense($data)
     {
         $decodedData = json_decode(base64_decode($data));
 
-        $idEmployee = $decodedData->pivot->employee_id;
-        $idLicense = $decodedData->pivot->license_id;
-        $dateInit = $decodedData->pivot->start_date;
-        $dateFinal = $decodedData->pivot->final_date;
+        $idEmployee = $decodedData->employee_id;
+        $idLicense = $decodedData->license_id;
+        $dateInit = $decodedData->start_date;
+        $dateFinal = $decodedData->final_date;
 
 
 
@@ -258,6 +278,6 @@ class LicenseController extends Controller
 
 
 
-        return redirect()->route("admin.licenses.activityLicenses")->with("message-danger", "Solicitud  rechazada.");
+        return redirect()->route("admin.licenses.allLicenses")->with("message-danger", "Solicitud  rechazada.");
     }
 }
