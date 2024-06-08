@@ -3,7 +3,7 @@
 @section('title', 'OMNIPRO')
 
 @section('content_header')
-    <h1>Administrador Configuraciones</h1>
+    <h1>Administrador Configuracionessss</h1>
 @stop
 
 @section('content')
