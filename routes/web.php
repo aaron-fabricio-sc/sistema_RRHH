@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsContoller;
 use App\Http\Controllers\UserController;
 use App\Models\Departament;
 use App\Models\Job;
@@ -184,6 +185,20 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get("attendances/{attendance}/show",  "show")->name("attendances.show");
     Route::post("attendances/salida",  "salida")->name("attendances.salida");
 });
+/* Settings */
+
+Route::controller(SettingsContoller::class)->group(function () {
+    Route::get("admin/settings-hours", "viewSettingsHours")->middleware(['auth', 'verified'])->name('admin.settings.viewSettingsHours');
+
+
+    /*   Route::get("attendances/reports",  "viewReports")->middleware(['auth', 'verified'])->name('attendances.reports');
+    Route::post("attendances/reports",  "dataReport")->middleware(['auth', 'verified'])->name('attendances.dataReport');
+    Route::get("attendances/create",  "create")->name("attendances.create");
+    Route::post("attendances/create",  "store")->name("attendances.store");
+    Route::get("attendances/{attendance}/show",  "show")->name("attendances.show");
+    Route::post("attendances/salida",  "salida")->name("attendances.salida"); */
+});
+
 
 
 

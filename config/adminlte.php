@@ -572,6 +572,25 @@ return [
             ],
         ],
 
+        [
+            'text'    => 'Configuraciones',
+            'icon'    => 'fas fa-tools',
+            'route'     => 'admin.settings.viewSettingsHours',
+            /*    'submenu' => [
+
+                [
+                    'text'    => 'Aplicación',
+                    'icon'    => 'fas fa-hourglass-start',
+                    'route'     => 'admin.settings.viewSettingsHours',
+                    //'can' => 'news.create',
+
+                ],
+               
+
+
+            ],  */
+        ],
+
 
     ],
 

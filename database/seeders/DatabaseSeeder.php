@@ -38,15 +38,15 @@ class DatabaseSeeder extends Seeder
         ])->assignRole("super_admin");
         User::factory(10)->create();
 
-        Departament::factory(30)->create();
+        //Departament::factory(30)->create();
 
-        Job::factory(10)->create();
+        //Job::factory(10)->create();
 
-        Contract::factory(10)->create();
+        //Contract::factory(10)->create();
 
         $this->call(CiExtensionSeeder::class);
 
-        License::factory(10)->create();
+        //License::factory(10)->create();
 
         News::factory(10)->create();
     }
