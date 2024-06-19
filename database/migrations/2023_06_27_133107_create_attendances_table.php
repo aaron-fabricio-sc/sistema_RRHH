@@ -17,8 +17,8 @@ return new class extends Migration
             $table->time("entrada")->nullable();
             $table->time("salida")->nullable();
 
-            $table->tinyInteger("asistencia")->default(0);
-
+            $table->string("tipo_asistencia")->nullable();
+            $table->string("minutos_diferencia")->nullable();
 
             $table->unsignedBigInteger("employee_id")->nullable();
 

@@ -36,6 +36,8 @@
                             <th>Empleado</th>
                             <th>Tipo de licencia</th>
                             <th>Detalles de licencia</th>
+                            <th>Dias de licencia</th>
+
 
                             <th class="text-success">Fecha de_empiezo</th>
                             <th class="text-danger">Fecha_final</th>
@@ -90,6 +92,10 @@
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $licenseDB->type_license }}</td>
                                 <td>{{ $licenseDB->description }}</td>
+                                <td>{{ $license->days }}</td>
+
+
+
 
 
 
@@ -147,6 +153,7 @@
 
                             <th>Tipo de Licencia</th>
                             <th>Descripción</th>
+                            <th>Dias de licencia</th>
 
                             <th class="text-success">Fecha de empiezo</th>
                             <th class="text-danger">Fecha final</th>

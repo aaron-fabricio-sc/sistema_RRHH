@@ -10,6 +10,7 @@
     <h4 class="text-info">Crear un nuevo Empleado</h4>
     <div class="card fondo-card fondo">
         <div class="card-body carta_formulario overley">
+            @include('admin.employee.partials.nav')
             {!! Form::open(['route' => 'admin.employees.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
             @include('admin.employee.partials.form')

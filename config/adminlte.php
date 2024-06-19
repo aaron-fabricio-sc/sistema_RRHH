@@ -575,7 +575,7 @@ return [
         [
             'text'    => 'Configuraciones',
             'icon'    => 'fas fa-tools',
-            'route'     => 'admin.settings.viewSettingsHours',
+            'route'     => 'admin.settings.index',
             /*    'submenu' => [
 
                 [

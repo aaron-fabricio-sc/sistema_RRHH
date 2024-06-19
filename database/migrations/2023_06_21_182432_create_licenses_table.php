@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("type_license")->unique();
             $table->text("description");
+
             $table->tinyInteger("status")->default(1);
             $table->timestamps();
         });

@@ -134,8 +134,6 @@ Route::resource("admin/employees", EmployeeController::class)->middleware(['auth
 //rutas de licensias
 Route::get("/admin/licenses/viewConfirmDelete/{id}", [LicenseController::class, "viewConfirmDelete"])->middleware(['auth', 'verified'])->name("admin.licenses.viewConfirmDelete");
 
-
-
 Route::get("/admin/licenses/inactive", [LicenseController::class, 'inactive'])->middleware(['auth', 'verified'])->name('admin.licenses.inactive');
 
 Route::get("/admin/licenses/inactivate/{license}", [LicenseController::class, 'inactivate'])->middleware(['auth', 'verified'])->name('admin.licenses.inactivate');
@@ -144,13 +142,13 @@ Route::get("/admin/licenses/activate/{license}", [LicenseController::class, 'act
 
 Route::get("/admin/licenses/requetsView/", [LicenseController::class, 'requetsView'])->middleware(['auth', 'verified'])->name('admin.licenses.requetsView');
 
+Route::get("/admin/licenses/filterLicense/", [LicenseController::class, 'filterLicense'])->middleware(['auth', 'verified'])->name('admin.licenses.filterLicense');
 
+Route::post("/admin/licenses/filterLicense/", [LicenseController::class, 'filterLicenseReport'])->middleware(['auth', 'verified'])->name('admin.licenses.filterLicenseReport');
 Route::get("/admin/licenses/activityLicenses/", [LicenseController::class, 'activityLicenses'])->middleware(['auth', 'verified'])->name('admin.licenses.activityLicenses');
 
 
 Route::post("/admin/licenses/requets/", [LicenseController::class, 'requets'])->middleware(['auth', 'verified'])->name('admin.licenses.requets');
-
-
 
 Route::get("/admin/licenses/confirmLicense/{data}", [LicenseController::class, 'confirmLicense'])->middleware(['auth', 'verified'])->name('admin.licenses.confirmLicense');
 
@@ -187,17 +185,11 @@ Route::controller(AttendanceController::class)->group(function () {
 });
 /* Settings */
 
-Route::controller(SettingsContoller::class)->group(function () {
-    Route::get("admin/settings-hours", "viewSettingsHours")->middleware(['auth', 'verified'])->name('admin.settings.viewSettingsHours');
+Route::resource('admin/settings', SettingsContoller::class)->middleware(['auth', 'verified'])->names('admin.settings');
 
 
-    /*   Route::get("attendances/reports",  "viewReports")->middleware(['auth', 'verified'])->name('attendances.reports');
-    Route::post("attendances/reports",  "dataReport")->middleware(['auth', 'verified'])->name('attendances.dataReport');
-    Route::get("attendances/create",  "create")->name("attendances.create");
-    Route::post("attendances/create",  "store")->name("attendances.store");
-    Route::get("attendances/{attendance}/show",  "show")->name("attendances.show");
-    Route::post("attendances/salida",  "salida")->name("attendances.salida"); */
-});
+
+
 
 
 

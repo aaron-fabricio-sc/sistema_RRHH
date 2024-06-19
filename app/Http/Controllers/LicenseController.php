@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLicense;
 use App\Models\Employee;
 use App\Models\License;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Settings;
 
 class LicenseController extends Controller
 {
@@ -175,7 +178,11 @@ class LicenseController extends Controller
         $final_date = $request->final_date;
 
 
+        $start = new DateTime($start_date);
+        $end = new DateTime($final_date);
+        $interval = $start->diff($end);
 
+        $days = $interval->days;
 
 
         $employee = Employee::where("user_id", $userId)->first();
@@ -189,6 +196,7 @@ class LicenseController extends Controller
             $employee->licenses()->attach($licenseId, [
                 "start_date" => $start_date,
                 "final_date" => $final_date,
+                "days" => $days,
 
             ]);
             return redirect()->route("admin.licenses.requetsView")->with("message", "Solicitud enviada correctamente.");
@@ -215,7 +223,77 @@ class LicenseController extends Controller
     }
 
 
+    public function filterLicense(Request $request)
+    {
 
+        //$employees = Employee::where("status", 1)->pluck("name", "id");
+        $month = [
+            "01" => "Enero",
+            "02" => "Febrero",
+            "03" => "Marzo",
+            "04" => "Abril",
+            "05" => "Mayo",
+            "06" => "Junio",
+            "07" => "Julio",
+            "08" => "Agosto",
+            "09" => "Septiembre",
+            "10" => "Octubre",
+            "11" => "Noviembre",
+            "12" => "Diciembre",
+
+
+        ];
+        $years = array();
+
+        for ($year = 2021; $year <= 2060; $year++) {
+            $years[$year] = $year;
+        }
+
+        return view("admin.license.filterLicense", compact("month", "years"));
+    }
+
+    public function filterLicenseReport(Request $request)
+    {
+        $request->validate([
+            "employee_id" => "required",
+            "month" => "required",
+            "year" => "required"
+        ]);
+
+        $employee_id = $request->employee_id;
+        $month = $request->month;
+        $year = $request->year;
+
+
+        $settings = Settings::first();
+
+        $licenses = DB::table('employee_license')
+            ->where('employee_id', $employee_id)
+            ->whereRaw('MONTH(final_date) = ?', [$month])
+            ->whereRaw('YEAR(final_date) = ?', [$year])
+            ->join('licenses', 'employee_license.license_id', '=', 'licenses.id')
+            ->get();
+
+        $maximoDias = $settings->totalLicenseDays;
+        $count = 0;
+        $diferencia = 0;
+        foreach ($licenses as $license) {
+            if ($license->status_license == 2) {
+                $count++;
+            }
+        }
+
+
+
+        $diferencia = $settings->totalLicenseDays - $count;
+
+
+
+        $employee = Employee::find($employee_id);
+
+        $pdf = Pdf::loadView('admin.license.pdf.report', compact("employee", "licenses", "month", "year", "count", "diferencia", "maximoDias"));
+        return $pdf->stream();
+    }
     public function allLicenses()
     {
 

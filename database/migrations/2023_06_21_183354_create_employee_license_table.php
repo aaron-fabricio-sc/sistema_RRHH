@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->date("start_date");
             $table->date("final_date");
-
+            $table->integer("days")->nullable();
             $table->tinyInteger("status_license")->nullable();
             $table->tinyInteger("status")->default(1);
 

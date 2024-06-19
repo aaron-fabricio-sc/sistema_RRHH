@@ -23,7 +23,7 @@
 
      @can('admin.licenses.inactive')
          <div>
-             <a class="btn btn-info " href="{{ route('admin.licenses.inactive') }}"><i class="fas fa-file"><span
+             <a class="btn btn-info " href="{{ route('admin.licenses.filterLicense') }}"><i class="fas fa-file"><span
                          class="ml-1">Generar Reporte</span></i></a>
          </div>
      @endcan

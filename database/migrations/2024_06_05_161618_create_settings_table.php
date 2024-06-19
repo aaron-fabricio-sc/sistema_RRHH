@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
 
-            $table->time('entrance')->default('08:00:00')->nullable();
-            $table->time('departure')->default('18:00:00')->nullable();
-            $table->integer('totalLicenseHours')->default(16)->nullable();
+            $table->time('entrance')->nullable();
+            $table->time('departure')->nullable();
+            $table->integer('totalLicenseDays')->nullable();
+            $table->string('arrivalTolerance')->nullable();
             $table->timestamps();
         });
     }

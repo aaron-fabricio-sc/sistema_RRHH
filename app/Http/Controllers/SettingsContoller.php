@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Settings;
+
 
 class SettingsContoller extends Controller
 {
@@ -12,6 +14,9 @@ class SettingsContoller extends Controller
     public function index()
     {
         //
+        $settings = Settings::find(1);
+
+        return view("admin.settings.settingsHours", compact("settings"));
     }
 
     /**
@@ -52,6 +57,23 @@ class SettingsContoller extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+
+
+
+
+        $setting = Settings::find($id);
+
+        $request->validate([
+            'entrance' => 'required',
+            'departure' => 'required',
+            'totalLicenseDays' => 'required',
+            'arrivalTolerance' => 'required'
+        ]);
+
+
+        $setting->update($request->all());
+        return redirect()->route("admin.settings.index")->with("message", "Se actualizó la configuración.");
     }
 
     /**
@@ -64,9 +86,5 @@ class SettingsContoller extends Controller
 
     public function viewSettingsHours()
     {
-
-        $month = date("m");
-        $years = date("Y");
-        return view("admin.settings.settingsHours", compact("month", "years"));
     }
 }

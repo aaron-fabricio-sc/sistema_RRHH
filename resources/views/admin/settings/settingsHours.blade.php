@@ -3,41 +3,78 @@
 @section('title', 'OMNIPRO')
 
 @section('content_header')
-    <h1>Administrador Configuracionessss</h1>
+    <h1>Administrador Configuraciones</h1>
 @stop
 
 @section('content')
-    <h4 class="text-info">Crear un nuevo departamento</h4>
+    <h4 class="text-info">Administrador</h4>
     <div class="card fondo-card fondo">
         <div class="card-body overley">
-            @include('admin.department.partials.nav')
-            {!! Form::open(['route' => 'admin.departments.store']) !!}
+            @if (session('message'))
+                <div class="alert alert-success">
+                    <strong>{{ session('message') }}</strong>
+                </div>
+            @endif
+            @if (session('message-danger'))
+                <div class="alert alert-danger">
+                    <strong>{{ session('message-danger') }}</strong>
+                </div>
+            @endif
+            {!! Form::model($settings, ['route' => ['admin.settings.update', $settings], 'method' => 'put']) !!}
 
             <div class="form-group">
-                {!! Form::label('name', 'Nombre: ') !!}
-                {!! Form::text('name', null, [
+                {!! Form::label('entrance', 'Hora de Entrada: ') !!}
+                {!! Form::time('entrance', null, [
                     'class' => 'form-control w-50',
-                    'placeholder' => 'ingrese el nombre del departamento',
+                    'placeholder' => 'ingrese la hora de entrada',
                 ]) !!}
 
-                @error('name')
+                @error('entrance')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
 
             <div class="form-group">
-                {!! Form::label('description', 'Descripción: ') !!}
-                {!! Form::textarea('description', null, [
-                    'class' => ' w-50 textarea',
-                    'placeholder' => 'ingrese una descripción',
+                {!! Form::label('departure', 'Hora de Salida: ') !!}
+                {!! Form::time('departure', null, [
+                    'class' => 'form-control w-50',
+                    'placeholder' => 'ingrese la hora de salida',
                 ]) !!}
-                @error('description')
+                @error('departure')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
             <div class="form-group">
-                {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
+                {!! Form::label('arrivalTolerance', 'Tolerancia de llegada: ') !!}
+                {!! Form::select(
+                    'arrivalTolerance',
+                    array_combine(
+                        range(5, 60, 5),
+                        array_map(function ($value) {
+                            return sprintf('%02d minutos', $value);
+                        }, range(5, 60, 5)),
+                    ),
+                    null,
+                    ['class' => 'form-control w-50'],
+                ) !!}
+                @error('arrivalTolerance')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('totalLicenseDays', 'Maximo de dias de licencia: ') !!}
+                {!! Form::number('totalLicenseDays', null, [
+                    'class' => 'form-control w-50',
+                    'placeholder' => 'Maximo de dias de licencia',
+                ]) !!}
+                @error('totalLicenseDays')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
             </div>
 
             {!! Form::close() !!}

@@ -147,8 +147,8 @@ class RoleSeeder extends Seeder
         Permission::create(["name" => "attendances.show"])->syncRoles([
             $superAdmin, $admin, $manager
         ]);
-        Permission::create(["name" => "attendances.create"])->syncRoles([$superAdmin, $admin, $manager, $employee]);
-        Permission::create(["name" => "attendances.store"])->syncRoles([$superAdmin, $admin, $manager, $employee]);
+        Permission::create(["name" => "attendances.create"])->syncRoles([$superAdmin, $admin]);
+        Permission::create(["name" => "attendances.store"])->syncRoles([$superAdmin, $admin]);
 
         Permission::create(["name" => "attendances.edit"])->syncRoles([$superAdmin, $admin]);
         Permission::create(["name" => "attendances.update"])->syncRoles([$superAdmin, $admin]);

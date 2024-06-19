@@ -8,6 +8,8 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Settings;
+use DateTime;
 
 class AttendanceController extends Controller
 {
@@ -23,6 +25,7 @@ class AttendanceController extends Controller
     {
         $this->middleware("can:attendances.index")->only("index");
         $this->middleware("can:attendances.edit")->only("edit");
+        $this->middleware("can:attendances.create")->only("create", "store");
 
         $this->middleware("can:attendances.show")->only("show");
 
@@ -59,6 +62,13 @@ class AttendanceController extends Controller
     {
         //  
 
+        $settings = Settings::find(1);
+
+        $entrance = $settings->entrance;
+        $departure = $settings->departure;
+        $totalLicenseHours = $settings->totalLicenseHours;
+        $arrivalTolerance = $settings->arrivalTolerance;
+
 
 
         $attendance = new Attendances();
@@ -76,8 +86,20 @@ class AttendanceController extends Controller
 
             $attendance->entrada = $entrada;
 
-            $attendance->asistencia = 1;
+            $entrada1 = new DateTime($entrance);
+            $entrada2 = new DateTime($entrada);
+            $interval = $entrada1->diff($entrada2);
+            $minutes = $interval->h * 60 + $interval->i;
+
+            if ($minutes > $arrivalTolerance) {
+                $attendance->tipo_asistencia = "Atraso";
+            } else {
+                $attendance->tipo_asistencia = "Puntual";
+            }
+
+            $attendance->minutos_diferencia = $minutes;
             $attendance->employee_id = $request->employee_id;
+
 
 
             $attendance->save();

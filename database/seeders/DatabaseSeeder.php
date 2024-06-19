@@ -39,15 +39,17 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         //Departament::factory(30)->create();
-
+        $this->call(DepartamentSeeder::class);
         //Job::factory(10)->create();
 
         //Contract::factory(10)->create();
-
+        $this->call(ContractsSeeder::class);
         $this->call(CiExtensionSeeder::class);
 
         //License::factory(10)->create();
 
         News::factory(10)->create();
+
+        $this->call(settingsSeeder::class);
     }
 }

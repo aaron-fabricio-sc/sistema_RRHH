@@ -12,7 +12,16 @@
 
 
         <div class="card-body overley">
-
+            @if (session('message'))
+                <div class="alert alert-success">
+                    <strong>{{ session('message') }}</strong>
+                </div>
+            @endif
+            @if (session('message-danger'))
+                <div class="alert alert-danger">
+                    <strong>{{ session('message-danger') }}</strong>
+                </div>
+            @endif
             @include('admin.license.partials.nav')
             {!! Form::open(['route' => 'admin.licenses.requets']) !!}
             {!! Form::hidden('userId', $userId, [null]) !!}

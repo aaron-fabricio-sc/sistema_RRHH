@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Http\Livewire\Attendance;
+namespace App\Http\Livewire\License;
 
 use Livewire\Component;
 use App\Models\Employee;
 
-class AttendanceReport extends Component
+class LicenseReport extends Component
 {
     public $search;
 
 
     public function render()
     {
-        //dd($this->search); // Añade esta línea
 
         $vacio = "Digite su número de documento.";
         $employees = "";
         if (!$this->search) {
-            return view('livewire.attendance.attendance-report', compact("vacio", "employees"));
+            return view('livewire.license.license-report', compact("vacio", "employees"));
         } else {
             $employees = Employee::where(
                 'document_number',
                 $this->search
             )->OrderBy('id', 'desc')->where('status', '1')->get();
 
-            return view('livewire.attendance.attendance-report', compact("employees"));
+            //return $employees;
+            return view('livewire.license.license-report', compact("employees"));
         }
     }
 }
