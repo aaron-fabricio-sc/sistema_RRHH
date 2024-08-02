@@ -18,6 +18,15 @@ return new class extends Migration
             $table->time('departure')->nullable();
             $table->integer('totalLicenseDays')->nullable();
             $table->string('arrivalTolerance')->nullable();
+
+            /* company */
+
+            $table->string('company_name')->nullable();
+            $table->longText('company_logo')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('company_phone')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('company_message')->nullable();
             $table->timestamps();
         });
     }

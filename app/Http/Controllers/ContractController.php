@@ -6,6 +6,7 @@ use App\Http\Requests\StoreContract;
 use App\Models\Contract;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
+use App\Models\Settings;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -148,8 +149,8 @@ class ContractController extends Controller
     {
         $actives = Contract::where('status', 1)->get();
         $inactives = Contract::where('status', 0)->get();
-
-        $pdf = Pdf::loadView('admin.contract.pdf.list', compact("actives", "inactives"));
+        $settings = Settings::find(1);
+        $pdf = Pdf::loadView('admin.contract.pdf.list', compact("actives", "inactives", "settings"));
         return $pdf->stream();
     }
 }

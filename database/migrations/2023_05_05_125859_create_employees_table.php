@@ -35,8 +35,14 @@ return new class extends Migration
             $table->longText("previous_work_details")->nullable();
             $table->date("start_date");
             $table->date("final_date")->nullable();
-            $table->longText("additional_employee_details")->nullable();
 
+            $table->longText("additional_employee_details")->nullable();
+            $table->date('working_time')->nullable();
+
+            $table->integer('days_vacations')->nullable()->default(0);
+            $table->date("vacation_start_date")->nullable();
+            $table->date("vacation_final_date")->nullable();
+            $table->integer('take_vacation')->nullable();
 
 
             $table->unsignedBigInteger('department_id')->nullable();

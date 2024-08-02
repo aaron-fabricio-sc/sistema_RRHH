@@ -10,6 +10,8 @@ use App\Models\Employee;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Settings;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EmployeeController extends Controller
 {
@@ -293,5 +295,36 @@ class EmployeeController extends Controller
         $employee->update();
 
         return redirect()->route("admin.employees.index")->with("message", "Se asignó un usuario al empleado.");
+    }
+
+    public function viewPfdEmployee($id)
+    {
+
+
+        $employee = Employee::find($id);
+
+        $department = Departament::find($employee->department_id);
+        $contract = Contract::find($employee->contract_id);
+        $job = Job::find($employee->job_id);
+        if ($employee->user_id) {
+            $user = User::find($employee->user_id);
+        } else {
+            $user = null;
+        }
+
+
+
+
+        $settings = Settings::find(1);
+        $pdf = Pdf::loadView('admin.employee.pdf.profile', compact("settings", "employee", "department", "contract", "job", "user"));
+        return $pdf->stream();
+    }
+
+    public function viewVacations($id)
+    {
+
+        $employee = Employee::find($id);
+
+        return view("admin.employee.vacations", compact("employee"));
     }
 }

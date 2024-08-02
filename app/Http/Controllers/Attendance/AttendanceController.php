@@ -66,17 +66,10 @@ class AttendanceController extends Controller
 
         $entrance = $settings->entrance;
         $departure = $settings->departure;
-        $totalLicenseHours = $settings->totalLicenseHours;
+
         $arrivalTolerance = $settings->arrivalTolerance;
-
-
-
         $attendance = new Attendances();
-
-
-
         $date =  Date("Y-m-d");
-
         $entrada =  Date("H:i:s");
         $attendanceDate = Attendances::where("employee_id", $request->employee_id)->whereDate("fecha", $date)->first();
         if ($attendanceDate) {
@@ -86,15 +79,20 @@ class AttendanceController extends Controller
 
             $attendance->entrada = $entrada;
 
-            $entrada1 = new DateTime($entrance);
-            $entrada2 = new DateTime($entrada);
-            $interval = $entrada1->diff($entrada2);
+            $entradaSettings = new DateTime($entrance);
+            $entradaRegistro = new DateTime($entrada);
+            $interval = $entradaSettings->diff($entradaRegistro);
             $minutes = $interval->h * 60 + $interval->i;
 
-            if ($minutes > $arrivalTolerance) {
-                $attendance->tipo_asistencia = "Atraso";
-            } else {
+            if ($entradaRegistro < $entradaSettings) {
+                $attendance->tipo_asistencia = "Temprano";
+            }
+
+            if ($entradaRegistro > $entradaSettings && $minutes < $arrivalTolerance) {
                 $attendance->tipo_asistencia = "Puntual";
+            }
+            if ($entradaRegistro > $entradaSettings && $minutes > $arrivalTolerance) {
+                $attendance->tipo_asistencia = "Tarde";
             }
 
             $attendance->minutos_diferencia = $minutes;
@@ -209,9 +207,9 @@ class AttendanceController extends Controller
 
         $employee = Employee::find($request->employee_id);
 
+        $settings = Settings::find(1);
 
-
-        $pdf = Pdf::loadView('attendance.pdf.report', compact("employeeAttendance", "employee", "month", "year"));
+        $pdf = Pdf::loadView('attendance.pdf.report', compact("employeeAttendance", "employee", "month", "year", "settings"));
         return $pdf->stream();
     }
 }

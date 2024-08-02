@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Departament;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Settings;
 
 class JobController extends Controller
 {
@@ -156,8 +157,8 @@ class JobController extends Controller
 
         $actives = Job::where('status', 1)->get();
         $inactives = Job::where('status', 0)->get();
-
-        $pdf = Pdf::loadView('admin.job.pdf.list', compact("actives", "inactives"));
+        $settings = Settings::find(1);
+        $pdf = Pdf::loadView('admin.job.pdf.list', compact("actives", "inactives", "settings"));
         return $pdf->stream();
     }
 }

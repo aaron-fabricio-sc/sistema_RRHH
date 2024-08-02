@@ -225,17 +225,20 @@
 
 <body>
     <div class="header">
-        <img src="imagenes/logoOsinfondo.png" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,.{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
 
 
         <div class="header_description">
-            <p class="title">Empresa Fernández </p>
-            <p>"Empresa Fernandez: Líder en bienes raíces, ofreciendo servicios integrales y garantizando la
-                satisfacción de nuestros clientes."</p>
-            <p>CEL. 706681335</p>
-            <p>EMAIL. aaronfabricio00@gmail.com</p>
+            <p class="title">{{ $settings->company_name }} </p>
+            <p>"{{ $settings->company_message }}"</p>
+            <p>DIRECCIÓN : {{ $settings->company_address }}</p>
+
+            <p>CEL : {{ $settings->company_phone }}</p>
+            <p>EMAIL : {{ $settings->company_email }}</p>
+
 
         </div>
+
 
 
 
@@ -250,7 +253,7 @@
             {{ $employee->second_last_name }}</h1>
         <h3>Fecha:</h3>
         @php
-            
+
             switch ($month) {
                 case '01':
                     $month = 'Enero';
@@ -288,7 +291,7 @@
                 case '12':
                     $month = 'Diciembre';
                     break;
-            
+
                 default:
                     # code...
                     break;
@@ -317,9 +320,9 @@
 
                         @php
                             $date = $attendance->fecha;
-                            
+
                             $newDate = date('d-m-Y', strtotime($date));
-                            
+
                         @endphp
 
                         <td>{{ $newDate }}</td>

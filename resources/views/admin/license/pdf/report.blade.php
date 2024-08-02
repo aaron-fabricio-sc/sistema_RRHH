@@ -225,15 +225,17 @@
 
 <body>
     <div class="header">
-        <img src="imagenes/logoOsinfondo.png" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,.{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
 
 
         <div class="header_description">
-            <p class="title">Empresa Fernández </p>
-            <p>"Empresa Fernandez: Líder en bienes raíces, ofreciendo servicios integrales y garantizando la
-                satisfacción de nuestros clientes."</p>
-            <p>CEL. 706681335</p>
-            <p>EMAIL. aaronfabricio00@gmail.com</p>
+            <p class="title">{{ $settings->company_name }} </p>
+            <p>"{{ $settings->company_message }}"</p>
+            <p>DIRECCIÓN : {{ $settings->company_address }}</p>
+
+            <p>CEL : {{ $settings->company_phone }}</p>
+            <p>EMAIL : {{ $settings->company_email }}</p>
+
 
         </div>
 
@@ -243,14 +245,7 @@
     </div>
 
     <div class="container">
-        @php
-            $text = '';
-            if ($diferencia <= 0) {
-                $text = 'El empleado Sobrepaso sus dias de licencia';
-            } else {
-                $text = 'El empleado no ha sobrepasado sus dias de licencia';
-            }
-        @endphp
+
         <h3>Reporte de Licencias del o la empleado/a
         </h3>
         <h1>{{ $employee->name }} {{ $employee->firts_last_name }}
@@ -305,8 +300,16 @@
         <p>Maximo de días de permiso por mes <span style="font-size: 22px; font-weight: 700">{{ $maximoDias }}</span>
         </p>
         <p> Cantidad de dias tomadas de licencia <span style="font-size: 22px; font-weight: 700">
-                {{ $count }}</span> </p>
-        <p>{{ $text }}</p>
+                {{ $totalDiasTomados }}</span> </p>
+
+        @if ($totalDiasTomados > $maximoDias)
+            <p style="color:red; margin:15px 0; ">El empleado Sobrepaso sus dias de licencia por
+                {{ $diferencia }} días.</p>
+        @else
+            <p style="color:green; margin:15px 0;">El empleado no ha sobrepasado sus dias de licencia.</p>
+        @endif
+
+
         <table>
             <thead>
                 <tr>
@@ -325,9 +328,6 @@
             <tbody>
                 @foreach ($licenses as $license)
                     <tr>
-
-
-
 
                         @php
                             $dateI = $license->start_date;

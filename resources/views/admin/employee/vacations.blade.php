@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <h4 class="title_view">Crear un nuevo Empleado</h4>
+    <h4 class="title_view">Vacaciones del empleado</h4>
     <div class="card fondo">
 
         <div class="overley">

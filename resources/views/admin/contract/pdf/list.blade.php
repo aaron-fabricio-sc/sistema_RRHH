@@ -220,17 +220,20 @@
 
 <body>
     <div class="header">
-        <img src="imagenes/logoOsinfondo.png" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,.{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
 
 
         <div class="header_description">
-            <p class="title">Empresa Fernández </p>
-            <p>"Empresa Fernandez: Líder en bienes raíces, ofreciendo servicios integrales y garantizando la
-                satisfacción de nuestros clientes."</p>
-            <p>CEL. 706681335</p>
-            <p>EMAIL. aaronfabricio00@gmail.com</p>
+            <p class="title">{{ $settings->company_name }} </p>
+            <p>"{{ $settings->company_message }}"</p>
+            <p>DIRECCIÓN : {{ $settings->company_address }}</p>
+
+            <p>CEL : {{ $settings->company_phone }}</p>
+            <p>EMAIL : {{ $settings->company_email }}</p>
+
 
         </div>
+
 
 
 
@@ -270,11 +273,11 @@
 
                         @php
                             $dateActive = $active->created_at;
-                            
+
                             $newDateActive = date('d-m-Y H:i:s', strtotime($dateActive));
-                            
+
                             $dateUpdate = $active->updated_at;
-                            
+
                             $newDateUpdate = date('d-m-Y H:i:s', strtotime($dateUpdate));
                         @endphp
 
@@ -323,11 +326,11 @@
 
                         @php
                             $dateinactive = $inactive->created_at;
-                            
+
                             $newDateinactive = date('d-m-Y H:i:s', strtotime($dateinactive));
-                            
+
                             $dateUpdate = $inactive->updated_at;
-                            
+
                             $newDateUpdate = date('d-m-Y H:i:s', strtotime($dateUpdate));
                         @endphp
                         <td class="dates">{{ $newDateinactive }}</td>

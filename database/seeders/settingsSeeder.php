@@ -21,6 +21,14 @@ class settingsSeeder extends Seeder
         $settings->departure = "18:00:00";
         $settings->totalLicenseDays = 16;
         $settings->arrivalTolerance = "40";
+        $settings->company_name = "Default Company Name";
+
+        $settings->company_email = "Default Company Email";
+        $settings->company_phone = "Default Company Phone";
+        $settings->company_address = "Default Company Address";
+        $settings->company_message = "Default Company Message";
+
+
         $settings->save();
     }
 }

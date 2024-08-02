@@ -277,21 +277,25 @@ class LicenseController extends Controller
         $maximoDias = $settings->totalLicenseDays;
         $count = 0;
         $diferencia = 0;
+
+        $totalDiasTomados = 0;
+
+
         foreach ($licenses as $license) {
             if ($license->status_license == 2) {
                 $count++;
+                $totalDiasTomados += $license->days;
             }
         }
 
 
+        $diferencia = abs($maximoDias - $totalDiasTomados);
 
-        $diferencia = $settings->totalLicenseDays - $count;
-
-
+        $settings = Settings::find(1);
 
         $employee = Employee::find($employee_id);
 
-        $pdf = Pdf::loadView('admin.license.pdf.report', compact("employee", "licenses", "month", "year", "count", "diferencia", "maximoDias"));
+        $pdf = Pdf::loadView('admin.license.pdf.report', compact("employee", "licenses", "month", "year", "count", "diferencia", "maximoDias", "totalDiasTomados", "settings"));
         return $pdf->stream();
     }
     public function allLicenses()
@@ -343,18 +347,12 @@ class LicenseController extends Controller
         $dateInit = $decodedData->start_date;
         $dateFinal = $decodedData->final_date;
 
-
-
         DB::table('employee_license')
             ->where('employee_id', $idEmployee)
             ->where('license_id', $idLicense)
             ->where('start_date', $dateInit)
             ->where("final_date", $dateFinal)
             ->update(['status_license' => 1]);
-
-
-
-
 
         return redirect()->route("admin.licenses.allLicenses")->with("message-danger", "Solicitud  rechazada.");
     }

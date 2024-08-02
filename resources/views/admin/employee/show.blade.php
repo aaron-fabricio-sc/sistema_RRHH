@@ -209,8 +209,10 @@
                 </div>
 
                 <div>
+                    @if ($employee->cv !== null)
+                        <a href="/archivos/{{ $employee->cv }}" target="blank_" class="btn btn-secondary mx-1">PDF</a>
+                    @endif
 
-                    <a href="/archivos/{{ $employee->cv }}" target="blank_" class="btn btn-secondary mx-1">PDF</a>
 
 
                     <a href="{{ route('admin.employees.edit', $employee) }}" class="btn btn-primary mx-1">Editar</a>
@@ -225,6 +227,16 @@
                         <a href="{{ route('admin.employees.viewAssignUser', $employee) }}"
                             class="btn btn-warning mx-1">Assignar
                             Usuario</a>
+                    @endcan
+
+                    @can('admin.employees.viewAssignUser')
+                        <a target="blank_" href="{{ route('admin.employees.viewPfdEmployee', $employee) }}"
+                            class="btn btn-warning mx-1">Descargar Perfil</a>
+                    @endcan
+
+                    @can('admin.employees.viewAssignUser')
+                        <a target="blank_" href="{{ route('admin.employees.viewVacations', $employee) }}"
+                            class="btn btn-warning mx-1">Vacaciones</a>
                     @endcan
 
 

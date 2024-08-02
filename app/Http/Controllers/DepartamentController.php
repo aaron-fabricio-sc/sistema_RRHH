@@ -7,7 +7,7 @@ use App\Http\Requests\StoreDepartment;
 use Illuminate\Http\Request;
 use App\Models\Departament;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Settings;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class DepartamentController extends Controller
@@ -157,8 +157,8 @@ class DepartamentController extends Controller
 
         $actives = Departament::where('status', 1)->get();
         $inactives = Departament::where('status', 0)->get();
-
-        $pdf = Pdf::loadView('admin.department.pdf.pdf', compact("actives", "inactives"));
+        $settings = Settings::find(1);
+        $pdf = Pdf::loadView('admin.department.pdf.pdf', compact("actives", "inactives", "settings"));
         return $pdf->stream();
     }
 }

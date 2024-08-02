@@ -214,15 +214,17 @@
 
 <body>
     <div class="header">
-        <img src="imagenes/logoOsinfondo.png" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,.{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
 
 
         <div class="header_description">
-            <p class="title">Empresa Fernández </p>
-            <p>"Empresa Fernandez: Líder en bienes raíces, ofreciendo servicios integrales y garantizando la
-                satisfacción de nuestros clientes."</p>
-            <p>CEL. 706681335</p>
-            <p>EMAIL. aaronfabricio00@gmail.com</p>
+            <p class="title">{{ $settings->company_name }} </p>
+            <p>"{{ $settings->company_message }}"</p>
+            <p>DIRECCIÓN : {{ $settings->company_address }}</p>
+
+            <p>CEL : {{ $settings->company_phone }}</p>
+            <p>EMAIL : {{ $settings->company_email }}</p>
+
 
         </div>
 
@@ -260,7 +262,7 @@
 
                         @php
                             $data = $user->roles;
-                            
+
                         @endphp
 
                         @foreach ($user->roles as $rol)
@@ -274,11 +276,11 @@
 
                         @php
                             $dateuser = $user->created_at;
-                            
+
                             $newDateuser = date('d-m-Y H:i:s', strtotime($dateuser));
-                            
+
                             $dateUpdate = $user->updated_at;
-                            
+
                             $newDateUpdate = date('d-m-Y H:i:s', strtotime($dateUpdate));
                         @endphp
 

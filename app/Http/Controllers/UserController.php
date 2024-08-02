@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Settings;
 
 class UserController extends Controller
 {
@@ -161,23 +162,13 @@ class UserController extends Controller
 
         $user = User::find(4);
 
-        /*  $data = $user->roles;
+
+        $settings = Settings::find(1);
 
 
 
-        if(count($data) === 0){
-            return "asdsa";
-        } */
-        /*         return  $data; */
 
-        /*   if (!empty($user->roles)) {
-            return "pasa";
-        }
- */
-
-
-
-        $pdf = Pdf::loadView('admin.user.pdf.all-users', compact("users"));
+        $pdf = Pdf::loadView('admin.user.pdf.all-users', compact("users", "settings"));
         return $pdf->stream();
     }
 }

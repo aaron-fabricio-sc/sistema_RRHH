@@ -8,6 +8,7 @@
 
     <title>PDF LIST</title>
 
+
     <style>
         html,
         body,
@@ -196,6 +197,35 @@
             margin-bottom: 15px;
         }
 
+        .profile {
+            margin: 15px 0;
+
+        }
+
+        .profile .text p {
+            padding: 8px 0px;
+            font-size: 16px;
+
+
+        }
+
+        .profile .text p span {
+            font-weight: bold;
+        }
+
+        .profile h1 {
+            font-size: 30px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .profile h2 {
+            font-size: 25px;
+            margin-bottom: 15px;
+
+        }
+
+
         .dates {
 
             font-size: 12px;
@@ -219,7 +249,7 @@
 
 <body>
     <div class="header">
-        <img src="data:image/png;base64,.{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
 
 
         <div class="header_description">
@@ -239,115 +269,66 @@
 
     </div>
 
-    <div class="container">
+    <div class="profile">
 
-        <h1>Trabajos Activos</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Departamento</th>
+        <h1>Información del perfil</h1>
+        {{--  @if ($employee->image === null)
+            <h2>No tiene foto de perfil</h2>
+        @else
+            <div>
+                <img src="/imagenes/'{{ $employee->image }}" class="img-fluid rounded-circle">
+            </div>
+        @endif --}}
 
-                    <th>Estado</th>
-                    <th>Fecha_Creada</th>
+        <div class="text">
+            <p>Nombre: <span>{{ ucwords($employee->name) }}</span> </p>
+            <p>Primer Apellido: <span>{{ ucwords($employee->firts_last_name) }}</span> </p>
+            <p>Segundo Apellido: <span>{{ ucwords($employee->second_last_name) }}</span></p>
+            <p>Fecha de nacimento: <span> {{ $employee->birthdate }} </span></p>
+            <p>Genero: <span> {{ $employee->gender }} </span></p>
+            <p>Teléfono: <span> {{ $employee->phone }} </span></p>
+            <p>Email: <span> {{ $employee->email }} </span></p>
+            <p>Tipo de documento: <span> {{ $employee->type_document }} </span></p>
+            <p>Número de documento: <span> {{ $employee->document_number }} </span></p>
+            @if ($employee->address_1 !== null)
+                <p>Primera dirección: <span> {{ $employee->address_1 }} </span></p>
+            @endif
+            @if ($employee->address_2 !== null)
+                <p>Segunda dirección: <span> {{ $employee->address_2 }} </span></p>
+            @endif
+            @if ($employee->previous_work_details !== null)
+                <p>Información del antiguo trabajo: <span> {{ $employee->previous_work_details }} </span></p>
+            @endif
+            @if ($employee->start_date !== null)
+                <p>Fecha de inicio de trabajo: <span> {{ $employee->start_date }} </span></p>
+            @endif
+            @if ($employee->final_date !== null)
+                <p>Fecha final de trabajo: <span> {{ $employee->final_date }} </span></p>
+            @endif
+            @if ($employee->additional_employee_details !== null)
+                <p>Información extra: <span> {{ $employee->additional_employee_details }} </span></p>
+            @endif
+            @if ($department->name !== null)
+                <p>Departamento: <span> {{ $department->name }} </span></p>
+            @endif
+            @if ($job->name !== null)
+                <p>Tipo de trabajo: <span> {{ $job->name }} </span></p>
+            @endif
+            @if ($contract->type_contract !== null)
+                <p>Tipo de contrato: <span> {{ $contract->type_contract }} </span></p>
+            @endif
 
-                    <th>Ultima Actualización</th>
-                </tr>
+            @if ($user !== null)
+                <p>Usuario/a: <span> {{ $user->name }} </span></p>
+            @endif
 
 
-
-
-            </thead>
-            <tbody>
-                @foreach ($actives as $active)
-                    <tr>
-                        <td>{{ $active->id }}</td>
-                        <td>{{ $active->name }}</td>
-                        <td>{{ $active->description }}</td>
-                        <td>{{ $active->departament->name }}</td>
-                        @if ($active->status === 1)
-                            <td>Activo</td>
-                        @endif
-
-
-
-                        @php
-                            $dateActive = $active->created_at;
-
-                            $newDateActive = date('d-m-Y H:i:s', strtotime($dateActive));
-
-                            $dateUpdate = $active->updated_at;
-
-                            $newDateUpdate = date('d-m-Y H:i:s', strtotime($dateUpdate));
-                        @endphp
-
-                        <td class="dates">{{ $newDateActive }}</td>
-
-
-                        <td class="dates">{{ $newDateUpdate }}</td>
-                    </tr>
-                @endforeach
-
-            </tbody>
-
-        </table>
+        </div>
     </div>
 
-    <div class="page-break"></div>
-
-    <div class="container">
-
-        <h1>Trabajos Inactivos</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Departamento</th>
-                    <th>Estado</th>
-                    <th>Fecha_Creada</th>
-                    <th>Ultima Actualización</th>
-                </tr>
 
 
 
-
-            </thead>
-            <tbody>
-                @foreach ($inactives as $inactives)
-                    <tr>
-                        <td>{{ $inactives->id }}</td>
-                        <td>{{ $inactives->name }}</td>
-                        <td>{{ $inactives->description }}</td>
-                        <td>{{ $inactives->departament->name }}</td>
-                        @if ($inactives->status === 0)
-                            <td>Inactivo</td>
-                        @endif
-                        @php
-                            $dateCreateInactive = $inactives->created_at;
-
-                            $newDataCreate = date('d-m-Y H:i:s', strtotime($dateCreateInactive));
-
-                            $dateUpdateInactive = $inactives->updated_at;
-
-                            $newDateUpdate = date('d-m-Y H:i:s', strtotime($dateUpdateInactive));
-                        @endphp
-
-                        <td class="dates">{{ $newDataCreate }}</td>
-
-
-                        <td class="dates">{{ $newDateUpdate }}</td>
-                    </tr>
-                @endforeach
-
-            </tbody>
-
-        </table>
-
-    </div>
 
 
 </body>

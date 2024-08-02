@@ -122,11 +122,23 @@ Route::get("/admin/employees/inactivate/{employee}", [EmployeeController::class,
 
 Route::get("/admin/employees/activate/{employee}", [EmployeeController::class, 'activate'])->middleware(['auth', 'verified'])->name('admin.employees.activate');
 
-Route::get("/admin/employees/viewAssignUser/{employee}", [EmployeeController::class, 'viewAssignUser'])->middleware(['auth', 'verified'])->name('admin.employees.viewAssignUser');
+Route::get("/admin/employees/viewAssignUser/{employee}", [
+    EmployeeController::class,
+    'viewAssignUser'
+])->middleware(['auth', 'verified'])->name('admin.employees.viewAssignUser');
+
+
+Route::get("/admin/employees/viewVacations/{employee}", [EmployeeController::class, 'viewVacations'])->middleware(['auth', 'verified'])->name('admin.employees.viewVacations');
+
 Route::put("/admin/employees/assignUser/{employee}", [EmployeeController::class, 'assignUser'])->middleware(['auth', 'verified'])->name('admin.employees.assignUser');
 
-Route::resource("admin/employees", EmployeeController::class)->middleware(['auth', 'verified'])->names('admin.employees');
 
+
+
+Route::get("/admin/employees/pdf/profile/{employee}", [EmployeeController::class, 'viewPfdEmployee'])->middleware(['auth', 'verified'])->name('admin.employees.viewPfdEmployee');
+
+
+Route::resource("admin/employees", EmployeeController::class)->middleware(['auth', 'verified'])->names('admin.employees');
 
 
 
@@ -185,6 +197,9 @@ Route::controller(AttendanceController::class)->group(function () {
 });
 /* Settings */
 
+
+Route::get("/admin/settings/company", [SettingsContoller::class, 'getViewSettingsCompany'])->middleware(['auth', 'verified'])->name('admin.settings.getViewSettingsCompany');
+Route::put("/admin/settings/company", [SettingsContoller::class, 'updateDataCompany'])->middleware(['auth', 'verified'])->name('admin.settings.updateDataCompany');
 Route::resource('admin/settings', SettingsContoller::class)->middleware(['auth', 'verified'])->names('admin.settings');
 
 

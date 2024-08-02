@@ -575,20 +575,28 @@ return [
         [
             'text'    => 'Configuraciones',
             'icon'    => 'fas fa-tools',
-            'route'     => 'admin.settings.index',
-            /*    'submenu' => [
+            "can" => "admin.users.index",
+
+            'submenu' => [
 
                 [
-                    'text'    => 'Aplicación',
-                    'icon'    => 'fas fa-hourglass-start',
-                    'route'     => 'admin.settings.viewSettingsHours',
-                    //'can' => 'news.create',
+                    'text'    => 'RRHH',
+                    'icon'    => 'fas fa-user-tie',
+                    'route'     => 'admin.settings.index',
+                    'can' => 'news.create',
 
                 ],
-               
+                [
+                    'text'    => 'Datos de la Empresa',
+                    'icon'    => 'fas fa-desktop',
+                    'route'     => 'admin.settings.getViewSettingsCompany',
+                    'can' => 'news.create',
+
+                ]
 
 
-            ],  */
+
+            ],
         ],
 
 

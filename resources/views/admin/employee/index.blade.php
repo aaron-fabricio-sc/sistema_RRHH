@@ -75,8 +75,13 @@
                                         <b class="text-success">Activo</b>
                                     </td>
                                     <td>
-                                        <a href="/archivos/{{ $employee->cv }}" target="_blank"
-                                            class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                        @if ($employee->cv == null)
+                                            <b class="text-danger">Sin CV</b>
+                                        @else
+                                            <a href="/archivos/{{ $employee->cv }}" target="_blank"
+                                                class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                        @endif
+
                                     </td>
 
                                     @can('admin.employees.show')
@@ -137,7 +142,6 @@
                                 @can('admin.employees.viewAssignUser')
                                     <th class="text-warning">Asignar Usuario</th>
                                 @endcan
-
 
 
                             </tr>
