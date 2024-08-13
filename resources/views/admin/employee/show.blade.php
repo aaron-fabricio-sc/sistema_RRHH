@@ -10,6 +10,16 @@
     <h4 class="title_view">Detalles del empleado {{ $employee->name }}</h4>
     <div class="card fondo">
         <div class="overley ">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    <strong>{{ session('message') }}</strong>
+                </div>
+            @endif
+            @if (session('message-danger'))
+                <div class="alert alert-danger">
+                    <strong>{{ session('message-danger') }}</strong>
+                </div>
+            @endif
             @include('admin.employee.partials.nav')
             <div class="container pt-3">
                 <div class="row">
@@ -145,7 +155,7 @@
                         <h5 class="title-show-employee">Detalles adicionales del empleado:
 
                             @if (!$employee->additional_employee_details)
-                                <p>Dato Vacio</p>
+                                <p class="text-md text-show-employee">Dato Vacio</p>
                             @else
                                 <p class="text-md text-show-employee">
                                     {{ $employee->additional_employee_details }}</p>
@@ -185,6 +195,58 @@
                             @else
                                 <p class="text-md text-show-employee">
                                     {{ $employee->address_2 }}</p>
+                            @endif
+
+                        </h5>
+
+
+                    </div>
+
+                    <div class="col-md-3 p-2 justify-items-center">
+                        <h5 class="title-show-employee">Tiempo de trabajo:
+
+                            @if (!$employee->working_time)
+                                <p class="text-md text-show-employee">
+                                    Vacio</p>
+                            @else
+                                <p class="text-md text-show-employee">
+
+
+
+                                    {{ $dateee }}</p>
+                            @endif
+
+                        </h5>
+
+
+                    </div>
+                    <div class="col-md-3 p-2 justify-items-center">
+                        <h5 class="title-show-employee">Vacaciones tomadas:
+
+                            @if ($employee->take_vacation === null)
+                                <p class="text-md text-show-employee">
+                                    Vacio</p>
+                            @elseif($employee->take_vacation == 0)
+                                <p class="text-md text-show-employee">
+                                    No</p>
+                            @else
+                                <p class="text-md text-show-employee">
+                                    Si</p>
+                            @endif
+
+                        </h5>
+
+
+                    </div>
+                    <div class="col-md-3 p-2 justify-items-center">
+                        <h5 class="title-show-employee">Días de vacaciones permitidas:
+
+                            @if ($employee->days_vacations === null)
+                                <p class="text-md text-show-employee">
+                                    Vacio</p>
+                            @else
+                                <p class="text-md text-show-employee">
+                                    {{ $employee->days_vacations }}</p>
                             @endif
 
                         </h5>

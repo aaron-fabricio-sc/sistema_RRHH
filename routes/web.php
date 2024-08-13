@@ -130,6 +130,8 @@ Route::get("/admin/employees/viewAssignUser/{employee}", [
 
 Route::get("/admin/employees/viewVacations/{employee}", [EmployeeController::class, 'viewVacations'])->middleware(['auth', 'verified'])->name('admin.employees.viewVacations');
 
+Route::put("/admin/employees/resetVacations/{employee}", [EmployeeController::class, 'resetVacations'])->middleware(['auth', 'verified'])->name('admin.employees.resetVacations');
+Route::put("/admin/employees/updateVacations/{employee}", [EmployeeController::class, 'updateVacations'])->middleware(['auth', 'verified'])->name('admin.employees.updateVacations');
 Route::put("/admin/employees/assignUser/{employee}", [EmployeeController::class, 'assignUser'])->middleware(['auth', 'verified'])->name('admin.employees.assignUser');
 
 

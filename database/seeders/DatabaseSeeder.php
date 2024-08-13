@@ -40,9 +40,9 @@ class DatabaseSeeder extends Seeder
 
         //Departament::factory(30)->create();
         $this->call(DepartamentSeeder::class);
-        //Job::factory(10)->create();
+        Job::factory(20)->create();
 
-        //Contract::factory(10)->create();
+        Contract::factory(10)->create();
         $this->call(ContractsSeeder::class);
         $this->call(CiExtensionSeeder::class);
 

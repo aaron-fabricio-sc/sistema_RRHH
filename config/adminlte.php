@@ -390,7 +390,7 @@ return [
                             'route'  => 'admin.jobs.index',
                         ],
                         [
-                            'text'    => 'Crear tipo de trabajo',
+                            'text'    => 'Crear trabajo',
                             'icon'    => 'fas fa-fw fa-keyboard',
 
                             'route'  => 'admin.jobs.create',
@@ -418,7 +418,7 @@ return [
                             'route'  => 'admin.contracts.index',
                         ],
                         [
-                            'text'    => 'Crear tipo de contrato',
+                            'text'    => 'Crear contrato',
                             'icon'    => 'fas fa-fw fa-keyboard',
 
                             'route'  => 'admin.contracts.create',
@@ -448,7 +448,7 @@ return [
                             'route'  => 'admin.employees.index',
                         ],
                         [
-                            'text'    => 'Crear tipo de empleados',
+                            'text'    => 'Crear empleado',
                             'icon'    => 'fas fa-fw fa-keyboard',
 
                             'route'  => 'admin.employees.create',

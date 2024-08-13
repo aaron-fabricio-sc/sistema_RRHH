@@ -18,7 +18,20 @@ class ContractFactory extends Factory
      */
     public function definition(): array
     {
-        $type_contract = $this->faker->unique()->sentence();
+        $titulosContratos = [
+            'Contrato de Servicios Profesionales',
+            'Contrato de Arrendamiento',
+            'Contrato de Trabajo a Tiempo Indeterminado',
+            'Contrato de Obra Determinada',
+            'Contrato de Prestación de Servicios',
+            // Agrega más títulos según sea necesario
+            "Contrato de Obra",
+            "Contrato de Comodato",
+            "Contrato de Compraventa",
+            "Contrato de Mutuo",
+            "Contrato de Depósito",
+        ];
+        $type_contract = $this->faker->unique()->randomElement($titulosContratos);
         return [
             //
             "type_contract" => $type_contract,

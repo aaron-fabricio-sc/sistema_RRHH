@@ -37,7 +37,7 @@ return new class extends Migration
             $table->date("final_date")->nullable();
 
             $table->longText("additional_employee_details")->nullable();
-            $table->date('working_time')->nullable();
+            $table->string('working_time')->nullable();
 
             $table->integer('days_vacations')->nullable()->default(0);
             $table->date("vacation_start_date")->nullable();

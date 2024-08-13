@@ -249,7 +249,7 @@
 
 <body>
     <div class="header">
-        <img src="data:image/png;base64,{{ $settings->company_logo }}" alt="alskdnsa" width="150px">
+        <img src="data:image/png;base64,{{ $settings->company_logo }}" alt="" width="150px">
 
 
         <div class="header_description">

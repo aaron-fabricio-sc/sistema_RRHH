@@ -129,8 +129,17 @@ class EmployeeController extends Controller
     {
         //
 
+        $working_time = $employee->working_time;
+        [$year, $month, $day] = explode('-', $working_time);
 
-        return view("admin.employee.show", compact("employee"));
+        // Convertir a enteros para eliminar ceros a la izquierda
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
+        // Ahora puedes usar $year, $month, $day como necesites
+        $dateee = "Año: $year, Mes: $month, Día: $day";
+        return view("admin.employee.show", compact("employee", "dateee"));
     }
 
     /**
@@ -187,6 +196,36 @@ class EmployeeController extends Controller
         $employee->previous_work_details = $request->previous_work_details;
         $employee->start_date = $request->start_date;
         $employee->additional_employee_details = $request->additional_employee_details;
+
+        $startDate = $request->start_date;
+
+        $startDate = new \DateTime($request->start_date);
+        $endDate = new \DateTime(); // Fecha actual
+
+        // Calcular la diferencia
+        $diferencia = $startDate->diff($endDate);
+
+        // Formatear la diferencia como 'yyyy-mm-dd' (años-meses-días)
+        $diferenciaFormato = sprintf('%04d-%02d-%02d', $diferencia->y, $diferencia->m, $diferencia->d);
+        $anios = $diferencia->y;
+
+
+
+        $employee->working_time = $diferenciaFormato;
+
+        if ($anios >= 0 && $anios <= 5) {
+            $employee->days_vacations = 15;
+        } elseif ($anios >= 6 && $anios <= 10) {
+            $employee->days_vacations = 20;
+        } elseif ($anios >= 11) {
+            $employee->days_vacations = 25;
+        }
+
+
+
+
+
+
         $employee->department_id = $request->department_id;
 
         $employee->contract_id = $request->contract_id;
@@ -207,10 +246,63 @@ class EmployeeController extends Controller
         $employee->update();
         return redirect()->route("admin.employees.index")->with("message", "Se actualizó el empleado correctamente.");
     }
+    public function updateVacations(Request $request, Employee $employee)
+    {
+        //
+        $request->validate([
+            "vacation_start_date" => "required",
+            "vacation_final_date" => "required",
+        ]);
+        $maximosDias = $employee->days_vacations;
+        $employee->vacation_start_date = $request->vacation_start_date;
+        $employee->vacation_final_date = $request->vacation_final_date;
+        $employee->take_vacation = 1;
 
+
+        $fechaInicio = new \DateTime($request->vacation_start_date);
+        $fechaFinal = new \DateTime($request->vacation_final_date);
+
+        // Asegurarse de incluir el día final en el cálculo
+        $fechaFinal->modify('+1 day');
+
+        $intervalo = \DateInterval::createFromDateString('1 day');
+        $periodo = new \DatePeriod($fechaInicio, $intervalo, $fechaFinal);
+
+        // Contar los días hábiles
+        $diasHabiles = 0;
+        foreach ($periodo as $dia) {
+            if ($dia->format('N') < 6) { // 'N' devuelve el número del día de la semana (1 para lunes, 7 para domingo)
+                $diasHabiles++;
+            }
+        }
+
+        // Verificar si los días hábiles superan el máximo permitido
+        if ($diasHabiles > $maximosDias) {
+            // Manejar el caso en que se supera el máximo de días permitidos
+            return redirect()->route("admin.employees.index")->with("message-danger", "La solicitud de vacaciones supera el máximo de días permitidos.");
+        } else {
+            // Proceder con la lógica para aceptar la solicitud de vacaciones
+            // Por ejemplo, guardar las fechas en la base de datos
+            echo "ok";
+
+            $employee->update();
+
+            return redirect()->route("admin.employees.index")->with("message", "Las vacaciones se actualizaron correctamente.");
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */
+
+    public function resetVacations(Employee $employee)
+    {
+        //
+        $employee->vacation_start_date = null;
+        $employee->vacation_final_date = null;
+        $employee->take_vacation = 0;
+        $employee->update();
+        return redirect()->route("admin.employees.index")->with("message", "Se reiniciaron las vacaciones correctamente.");
+    }
     public function destroy(Employee $employee)
     {
         //
@@ -325,6 +417,17 @@ class EmployeeController extends Controller
 
         $employee = Employee::find($id);
 
-        return view("admin.employee.vacations", compact("employee"));
+        $fechaDeInicioEmpleado = $employee->start_date;
+
+        $tomoVacaciones = $employee->take_vacation;
+
+        if ($tomoVacaciones == null || $tomoVacaciones == 0) {
+            $tomoVacaciones = "No";
+        } else {
+            $tomoVacaciones = "Si";
+        }
+
+
+        return view("admin.employee.vacations", compact("employee", "tomoVacaciones"));
     }
 }

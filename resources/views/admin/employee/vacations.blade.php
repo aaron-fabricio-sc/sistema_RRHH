@@ -11,16 +11,54 @@
     <div class="card fondo">
 
         <div class="overley">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    <strong>{{ session('message') }}</strong>
+                </div>
+            @endif
+            @if (session('message-danger'))
+                <div class="alert alert-danger">
+                    <strong>{{ session('message-danger') }}</strong>
+                </div>
+            @endif
             <div class="card-body carta_formulario ">
                 @include('admin.employee.partials.nav')
 
                 {!! Form::model($employee, [
-                    'route' => ['admin.employees.update', $employee],
+                    'route' => ['admin.employees.updateVacations', $employee],
                     'method' => 'put',
                     'files' => true,
                 ]) !!}
+                <div class=" m-2">
+                    {!! Form::label('', 'Dias maximos de vacación ') !!}
+                    <h4 class="">{{ $employee->days_vacations }}</h4>
+                </div>
+                <div></div>
+                <div class=" m-2">
+                    {!! Form::label('', 'Tomo vacaciones anteriormente ') !!}
+                    <h4 class="">{{ $tomoVacaciones }}</h4>
+                </div>
+                <div></div>
+                <div class="form-group m-2">
+                    {!! Form::label('vacation_start_date', 'Fecha de inicio de vacación: ') !!}
+                    {!! Form::date('vacation_start_date', null, [
+                        'class' => 'textarea w-100',
+                    ]) !!}
 
-                @include('admin.employee.partials.form')
+                    @error('vacation_start_date')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group m-2">
+                    {!! Form::label('vacation_final_date', 'Final de la vacación: ') !!}
+                    {!! Form::date('vacation_final_date', null, [
+                        'class' => 'textarea w-100',
+                    ]) !!}
+
+                    @error('vacation_final_date')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
@@ -28,6 +66,15 @@
 
                 {!! Form::close() !!}
 
+                {!! Form::model($employee, [
+                    'route' => ['admin.employees.resetVacations', $employee],
+                    'method' => 'put',
+                    'files' => true,
+                ]) !!}
+                <div class="form-group">
+                    {!! Form::submit('Resetear Vacaciones', ['class' => 'btn btn-danger']) !!}
+                </div>
+                {!! Form::close() !!}
 
             </div>
         </div>
