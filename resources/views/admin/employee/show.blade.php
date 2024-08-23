@@ -64,8 +64,6 @@
 
 
                     </div>
-
-
                     <div class="col-md-2 p-2 justify-items-center">
                         <h5 class="title-show-employee">Telefono: <p class="text-md text-show-employee">
                                 {{ $employee->phone }}</p>
@@ -207,7 +205,7 @@
 
                             @if (!$employee->working_time)
                                 <p class="text-md text-show-employee">
-                                    Vacio</p>
+                                    {{ $messageError }}</p>
                             @else
                                 <p class="text-md text-show-employee">
 
@@ -225,7 +223,7 @@
 
                             @if ($employee->take_vacation === null)
                                 <p class="text-md text-show-employee">
-                                    Vacio</p>
+                                    No</p>
                             @elseif($employee->take_vacation == 0)
                                 <p class="text-md text-show-employee">
                                     No</p>
@@ -247,6 +245,22 @@
                             @else
                                 <p class="text-md text-show-employee">
                                     {{ $employee->days_vacations }}</p>
+                            @endif
+
+                        </h5>
+
+
+                    </div>
+                    <div class="col-md-3 p-2 justify-items-center">
+                        <h5 class="title-show-employee">Ultimas vacaciones tomadas:
+
+                            @if ($employee->vacation_start_date !== null && $employee->vacation_final_date !== null)
+                                <p class="text-md text-show-employee">
+                                    Desde: {{ $employee->vacation_start_date }} Hasta:
+                                    {{ $employee->vacation_final_date }}</p>
+                            @else
+                                <p class="text-md text-show-employee">
+                                    El trabajador no tomo vacaciones.</p>
                             @endif
 
                         </h5>

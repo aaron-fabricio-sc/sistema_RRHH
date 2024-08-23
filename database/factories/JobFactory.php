@@ -25,7 +25,7 @@ class JobFactory extends Factory
             "name" => $name,
 
             'description' => $this->faker->paragraph(20),
-            'status' => $this->faker->randomElement([0, 1]),
+            'status' => $this->faker->randomElement([1]),
             'departament_id' => Departament::all()->random()->id
 
         ];

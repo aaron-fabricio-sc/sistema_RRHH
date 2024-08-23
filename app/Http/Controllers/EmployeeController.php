@@ -129,17 +129,27 @@ class EmployeeController extends Controller
     {
         //
 
+
+
         $working_time = $employee->working_time;
-        [$year, $month, $day] = explode('-', $working_time);
 
-        // Convertir a enteros para eliminar ceros a la izquierda
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
+        $dateee = null;
+        $messageError = "";
+        if ($working_time) {
+            [$year, $month, $day] = explode('-', $working_time);
 
-        // Ahora puedes usar $year, $month, $day como necesites
-        $dateee = "Año: $year, Mes: $month, Día: $day";
-        return view("admin.employee.show", compact("employee", "dateee"));
+            // Convertir a enteros para eliminar ceros a la izquierda
+            $year = (int)$year;
+            $month = (int)$month;
+            $day = (int)$day;
+
+            // Ahora puedes usar $year, $month, $day como necesites
+            $dateee = "Año: $year, Mes: $month, Día: $day";
+        } else {
+            $messageError = "No se ha calculado la antigüedad actualice al empleado.";
+        }
+
+        return view("admin.employee.show", compact("employee", "dateee", "messageError"));
     }
 
     /**
@@ -279,7 +289,7 @@ class EmployeeController extends Controller
         // Verificar si los días hábiles superan el máximo permitido
         if ($diasHabiles > $maximosDias) {
             // Manejar el caso en que se supera el máximo de días permitidos
-            return redirect()->route("admin.employees.index")->with("message-danger", "La solicitud de vacaciones supera el máximo de días permitidos.");
+            return redirect()->route("admin.employees.viewVacations", ['employee' => $employee->id])->with("message-danger", "La solicitud de vacaciones supera el máximo de días permitidos.");
         } else {
             // Proceder con la lógica para aceptar la solicitud de vacaciones
             // Por ejemplo, guardar las fechas en la base de datos
@@ -287,7 +297,7 @@ class EmployeeController extends Controller
 
             $employee->update();
 
-            return redirect()->route("admin.employees.index")->with("message", "Las vacaciones se actualizaron correctamente.");
+            return redirect()->route("admin.employees.viewVacations", ['employee_id' => $employee->id])->with("message", "Las vacaciones se actualizaron correctamente.");
         }
     }
     /**
@@ -393,8 +403,12 @@ class EmployeeController extends Controller
     {
 
 
-        $employee = Employee::find($id);
 
+
+
+
+        $employee = Employee::find($id);
+        $ci = CiExtension::find($employee->ci_extension_id);
         $department = Departament::find($employee->department_id);
         $contract = Contract::find($employee->contract_id);
         $job = Job::find($employee->job_id);
@@ -403,12 +417,27 @@ class EmployeeController extends Controller
         } else {
             $user = null;
         }
+        $working_time = $employee->working_time;
 
+        $dateee = null;
+        $messageError = "";
+        if ($working_time) {
+            [$year, $month, $day] = explode('-', $working_time);
 
+            // Convertir a enteros para eliminar ceros a la izquierda
+            $year = (int)$year;
+            $month = (int)$month;
+            $day = (int)$day;
+
+            // Ahora puedes usar $year, $month, $day como necesites
+            $dateee = "Año: $year, Mes: $month, Día: $day";
+        } else {
+            $messageError = "No se ha calculado la antigüedad actualice al empleado.";
+        }
 
 
         $settings = Settings::find(1);
-        $pdf = Pdf::loadView('admin.employee.pdf.profile', compact("settings", "employee", "department", "contract", "job", "user"));
+        $pdf = Pdf::loadView('admin.employee.pdf.profile', compact("settings", "employee", "department", "contract", "job", "user", "ci", "dateee", "messageError"));
         return $pdf->stream();
     }
 

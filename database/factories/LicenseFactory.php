@@ -18,8 +18,8 @@ class LicenseFactory extends Factory
     {
         return [
             //
-            "type_license" => $this->faker->text(20),
-            "description" => $this->faker->text(100),
+            "type_license" => $this->faker->text(10),
+            "description" => $this->faker->paragraph(30),
 
             "status" => $this->faker->randomElement([1, 0])
         ];

@@ -8,6 +8,7 @@ use App\Models\CiExtension;
 use App\Models\Contract;
 use App\Models\Contracts;
 use App\Models\Departament;
+use App\Models\Employee;
 use App\Models\Job;
 use App\Models\License;
 use App\Models\News;
@@ -46,10 +47,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ContractsSeeder::class);
         $this->call(CiExtensionSeeder::class);
 
-        //License::factory(10)->create();
+        License::factory(10)->create();
 
         News::factory(10)->create();
 
         $this->call(settingsSeeder::class);
+
+        Employee::factory(50)->create();
     }
 }

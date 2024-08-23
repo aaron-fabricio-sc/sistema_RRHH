@@ -37,7 +37,7 @@ class ContractFactory extends Factory
             "type_contract" => $type_contract,
 
             'description' => $this->faker->paragraph(20),
-            'status' => $this->faker->randomElement([1, 0])
+            'status' => $this->faker->randomElement([1])
         ];
     }
 }

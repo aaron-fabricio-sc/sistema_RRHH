@@ -6,6 +6,8 @@ use App\Http\Requests\StoreLicense;
 use App\Models\Employee;
 use App\Models\License;
 use DateTime;
+use DateInterval;
+use DatePeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -171,6 +173,8 @@ class LicenseController extends Controller
 
     public function requets(Request $request)
     {
+        $settings = Settings::first();
+        $maxDays = $settings->totalLicenseDays;
 
         $userId = $request->userId;
         $licenseId = $request->type_license;
@@ -180,9 +184,22 @@ class LicenseController extends Controller
 
         $start = new DateTime($start_date);
         $end = new DateTime($final_date);
-        $interval = $start->diff($end);
+        $end->modify('+1 day'); // Incluir el día final en el cálculo
 
-        $days = $interval->days;
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod($start, $interval, $end);
+
+        $businessDays = 0;
+
+        foreach ($period as $date) {
+            if ($date->format('N') < 6) { // 6 y 7 son sábado y domingo
+                $businessDays++;
+            }
+        }
+
+
+
+        $days = $businessDays;
 
 
         $employee = Employee::where("user_id", $userId)->first();
@@ -191,6 +208,8 @@ class LicenseController extends Controller
 
         if (!$employee) {
             return redirect()->route("admin.licenses.index")->with("message-danger", "No estas vinculado a un usuario.");
+        } else if ($days > $maxDays) {
+            return redirect()->route("admin.licenses.requetsView")->with("message-danger", "No puede sobrepasar los dias maximos de licencias.");
         } else {
 
             $employee->licenses()->attach($licenseId, [

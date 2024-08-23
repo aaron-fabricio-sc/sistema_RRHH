@@ -241,6 +241,21 @@
             padding: 3px 0px;
         }
 
+        .container-foto {
+            width: 100%;
+
+
+        }
+
+        .foto-perfil {
+            float: right;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+
         table {
             box-sizing: border-box;
         }
@@ -272,13 +287,13 @@
     <div class="profile">
 
         <h1>Información del perfil</h1>
-        {{--  @if ($employee->image === null)
+        @if ($employee->image === null)
             <h2>No tiene foto de perfil</h2>
         @else
-            <div>
-                <img src="/imagenes/'{{ $employee->image }}" class="img-fluid rounded-circle">
+            <div class="container-foto">
+                <img src="{{ public_path('imagenes/' . $employee->image) }}" class="foto-perfil">
             </div>
-        @endif --}}
+        @endif
 
         <div class="text">
             <p>Nombre: <span>{{ ucwords($employee->name) }}</span> </p>
@@ -289,37 +304,78 @@
             <p>Teléfono: <span> {{ $employee->phone }} </span></p>
             <p>Email: <span> {{ $employee->email }} </span></p>
             <p>Tipo de documento: <span> {{ $employee->type_document }} </span></p>
-            <p>Número de documento: <span> {{ $employee->document_number }} </span></p>
+            <p>Número de documento: <span> {{ $employee->document_number }} {{ $employee->document_complement }}
+                    {{ $ci->extension }}</span></p>
             @if ($employee->address_1 !== null)
                 <p>Primera dirección: <span> {{ $employee->address_1 }} </span></p>
+            @else
+                <p>Primera dirección: <span> No tiene dirección asignada. </span></p>
             @endif
             @if ($employee->address_2 !== null)
                 <p>Segunda dirección: <span> {{ $employee->address_2 }} </span></p>
+            @else
+                <p>Segunda dirección: <span> No tiene dirección asignada. </span></p>
             @endif
             @if ($employee->previous_work_details !== null)
                 <p>Información del antiguo trabajo: <span> {{ $employee->previous_work_details }} </span></p>
+            @else
+                <p>Información del antiguo trabajo: <span> No tiene información de trabajo anterior. </span></p>
             @endif
             @if ($employee->start_date !== null)
                 <p>Fecha de inicio de trabajo: <span> {{ $employee->start_date }} </span></p>
             @endif
             @if ($employee->final_date !== null)
                 <p>Fecha final de trabajo: <span> {{ $employee->final_date }} </span></p>
+            @else
+                <p>Fecha final de trabajo: <span> No tiene fecha de finalización </span></p>
             @endif
             @if ($employee->additional_employee_details !== null)
-                <p>Información extra: <span> {{ $employee->additional_employee_details }} </span></p>
+                <p>Información adicional del trabajador : <span> {{ $employee->additional_employee_details }} </span>
+                </p>
+            @else
+                <p>Información adicional del trabajador : <span> No tiene información adicional. </span></p>
             @endif
             @if ($department->name !== null)
                 <p>Departamento: <span> {{ $department->name }} </span></p>
+            @else
+                <p>Departamento: <span> No tiene departamento asigando. </span></p>
             @endif
             @if ($job->name !== null)
                 <p>Tipo de trabajo: <span> {{ $job->name }} </span></p>
+            @else
+                <p>Tipo de trabajo: <span> No tiene trabajo asigando. </span></p>
             @endif
             @if ($contract->type_contract !== null)
                 <p>Tipo de contrato: <span> {{ $contract->type_contract }} </span></p>
+            @else
+                <p>Tipo de contrato: <span> No tiene contrato asigando. </span></p>
             @endif
-
+            @if ($employee->working_time !== null)
+                <p>Tiemplo de trabajo: <span> {{ $dateee }} </span></p>
+            @else
+                <p>Tiempo de trabajo: <span> Actualice al trabajador para ver el tiempo de trabajo. </span></p>
+            @endif
+            @if ($employee->days_vacations > 0)
+                <p>Maximo de dias de vacaciones <span> {{ $employee->days_vacations }} </span></p>
+            @else
+                <p>Actualice el perfil del trabajador para obtener los dias de vacaciones.</p>
+            @endif
+            @if ($employee->take_vacation)
+                <p>Tomo Vacaciones: <span> SI </span></p>
+            @else
+                <p>Tomo Vacaciones: <span> NO </span></p>
+            @endif
+            @if ($employee->vacation_start_date && $employee->vacation_final_date)
+                <p>Ultimas Vacaciones --- Desde: <span> {{ $employee->vacation_start_date }} </span> Hasta:
+                    <span>{{ $employee->vacation_final_date }}</span>
+                </p>
+            @else
+                <p>Ultimas Vacaciones: <span> No tomo Vacaciones. </span></p>
+            @endif
             @if ($user !== null)
                 <p>Usuario/a: <span> {{ $user->name }} </span></p>
+            @else
+                <p>Usuario/a: <span> No tiene usuario asignado. </span></p>
             @endif
 
 

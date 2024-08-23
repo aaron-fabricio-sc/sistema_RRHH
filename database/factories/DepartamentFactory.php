@@ -25,7 +25,7 @@ class DepartamentFactory extends Factory
             'name' => $name,
 
             'description' => $this->faker->paragraph(),
-            'status' => $this->faker->randomElement([1, 0]),
+            'status' => $this->faker->randomElement([1]),
 
 
         ];
