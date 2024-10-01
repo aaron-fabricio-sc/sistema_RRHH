@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date("birthdate");
             $table->string("gender");
             $table->string("phone");
-            $table->string("email")->unique();
+            $table->string("email")->unique()->nullable();
             $table->string("type_document");
             $table->string("document_number");
             $table->string("document_complement")->nullable();
@@ -45,12 +45,12 @@ return new class extends Migration
             $table->integer('take_vacation')->nullable();
 
 
-            $table->unsignedBigInteger('department_id')->nullable();
+
             $table->unsignedBigInteger('contract_id')->nullable();
             $table->unsignedBigInteger('job_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
 
-            $table->foreign("department_id")->references('id')->on('departaments')->onDelete('set null')->onUpdate("cascade");
+
             $table->foreign("contract_id")->references('id')->on('contracts')->onDelete('set null')->onUpdate("cascade");
             $table->foreign("job_id")->references('id')->on('jobs')->onDelete('set null')->onUpdate("cascade");
             $table->foreign("user_id")->references('id')->on('users')->onDelete('set null')->onUpdate("cascade");

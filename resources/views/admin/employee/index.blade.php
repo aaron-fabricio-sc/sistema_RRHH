@@ -36,7 +36,7 @@
                                 <th>Nombre</th>
                                 <th>Primer Apellido</th>
                                 <th>Segundo Apellido</th>
-                                <th>Departamento</th>
+                                <th>Trabajo</th>
 
                                 <th>Estado</th>
                                 <th>Curriculum</th>
@@ -65,10 +65,10 @@
                                     <td>{{ $employee->name }}</td>
                                     <td>{{ $employee->firts_last_name }}</td>
                                     <td>{{ $employee->second_last_name }}</td>
-                                    @if (!$employee->department)
+                                    @if (!$employee->job)
                                         <td><small class="text-danger">Vacio</small></td>
                                     @else
-                                        <td>{{ $employee->department->name }}</td>
+                                        <td>{{ $employee->job->name }}</td>
                                     @endif
 
                                     <td>
@@ -124,7 +124,7 @@
                                 <th>Nombre</th>
                                 <th>Primer Apellido</th>
                                 <th>Segundo Apellido</th>
-                                <th>Departamento</th>
+                                <th>Trabajo</th>
 
                                 <th>Estado</th>
                                 <th>Curriculum</th>

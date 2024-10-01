@@ -23,11 +23,18 @@
             @include('admin.employee.partials.nav')
             <div class="container pt-3">
                 <div class="row">
-                    <div class="col-md-2">
-                        <img src="/imagenes/{{ $employee->image }}" alt="{{ $employee->name }}"
-                            class="img-fluid rounded-circle">
-                    </div>
-                    <div class="col-md-2 align-items-center">
+
+                    @if ($employee->image === null)
+                        <div class="col-md-3">
+                            <img src="/imagenes/default.jpg" class="img-fluid rounded-circle">
+                        </div>
+                    @else
+                        <div class="col-md-3">
+                            <img src="/imagenes/{{ $employee->image }}" class="img-fluid rounded-circle">
+                        </div>
+                    @endif
+
+                    <div class="col-md-3 align-items-center">
                         <h5 class="title-show-employee">Nombre: <p class="text-md text-show-employee text-white">
                                 {{ $employee->name }}
                             </p>
@@ -47,24 +54,25 @@
 
 
                     </div>
-                    <div class="col-md-2">
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
                         <h5 class="title-show-employee">Genero: <p class="text-md text-show-employee ">
                                 {{ $employee->gender }}</p>
                         </h5>
 
 
                     </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-2 p-2 justify-items-center">
+                    <div class="col-md-3 p-2 justify-items-center">
                         <h5 class="title-show-employee">Correo: <p class="text-md text-show-employee">
                                 {{ $employee->email }}</p>
                         </h5>
 
 
                     </div>
-                    <div class="col-md-2 p-2 justify-items-center">
+                    <div class="col-md-3 p-2 justify-items-center">
                         <h5 class="title-show-employee">Telefono: <p class="text-md text-show-employee">
                                 {{ $employee->phone }}</p>
                         </h5>
@@ -87,7 +95,7 @@
 
 
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
 
                         <h5 class="title-show-employee">Nº de documento <p class="text-md text-show-employee">
                                 {{ $employee->document_number }}
@@ -97,18 +105,7 @@
 
 
                     </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2 p-2 justify-items-center">
-                        <h5 class="title-show-employee">Departamento: <p class="text-md text-show-employee">
-                                {{ $employee->department->name }}</p>
-                        </h5>
-
-
-                    </div>
-                    <div class="col-md-2 p-2 justify-items-center">
+                    <div class="col-md-3 p-2 justify-items-center">
                         <h5 class="title-show-employee">Trabajo: <p class="text-md text-show-employee">
                                 {{ $employee->job->name }}</p>
                         </h5>
@@ -131,7 +128,7 @@
 
 
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
 
                         <h5 class="title-show-employee">Fecha de salida:
 
@@ -146,10 +143,7 @@
 
 
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2 p-2 justify-items-center">
+                    <div class="col-md-3 p-2 justify-items-center">
                         <h5 class="title-show-employee">Detalles adicionales del empleado:
 
                             @if (!$employee->additional_employee_details)
@@ -162,7 +156,7 @@
 
 
                     </div>
-                    <div class="col-md-2 p-2 justify-items-center">
+                    <div class="col-md-3 p-2 justify-items-center">
                         <h5 class="title-show-employee">Detalles de trabajos anteriores:
                             @if (!$employee->previous_work_details)
                                 <p class="text-md text-show-employee ">Dato Vacio</p>
@@ -267,7 +261,7 @@
 
 
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
 
                         <h5 class="title-show-employee">Usuario:
 
@@ -283,6 +277,9 @@
 
                     </div>
                 </div>
+
+
+
 
                 <div>
                     @if ($employee->cv !== null)

@@ -41,18 +41,19 @@ class DatabaseSeeder extends Seeder
 
         //Departament::factory(30)->create();
         $this->call(DepartamentSeeder::class);
-        Job::factory(20)->create();
-
-        Contract::factory(10)->create();
+        //Job::factory(20)->create();
+        $this->call(JobSeeder::class);
+        // Contract::factory(10)->create();
         $this->call(ContractsSeeder::class);
         $this->call(CiExtensionSeeder::class);
 
-        License::factory(10)->create();
+        // License::factory(10)->create();
 
         News::factory(10)->create();
 
         $this->call(settingsSeeder::class);
 
-        Employee::factory(50)->create();
+        // Employee::factory(50)->create();
+        $this->call(EmployeeSeeder::class);
     }
 }
