@@ -14,7 +14,7 @@
             {!! Form::open(['route' => 'admin.employees.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
             @include('admin.employee.partials.form')
-
+            <div></div>
             <div class="form-group">
                 {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
             </div>

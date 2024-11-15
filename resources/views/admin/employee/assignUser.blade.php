@@ -19,9 +19,9 @@
                 <p class=" text-lg"><b>Nombre: </b> {{ $employee->name }}</p>
                 <p class=" text-lg"><b>Apellidos: </b> {{ $employee->firts_last_name }} {{ $employee->second_last_name }}
                 </p>
-                <p class="text-lg">
+                {{--   <p class="text-lg">
                     <b>Departamento: </b> {{ $employee->department->name }}
-                </p>
+                </p> --}}
                 <p class="text-lg">
                     <b>Cargo: </b> {{ $employee->job->name }}
                 </p>

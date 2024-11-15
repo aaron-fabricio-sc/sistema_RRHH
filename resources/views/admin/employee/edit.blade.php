@@ -21,7 +21,7 @@
                 ]) !!}
 
                 @include('admin.employee.partials.form')
-
+                <div></div>
                 <div class="form-group">
                     {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
                 </div>

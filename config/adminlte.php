@@ -575,7 +575,7 @@ return [
         [
             'text'    => 'Configuraciones',
             'icon'    => 'fas fa-tools',
-            "can" => "admin.users.index",
+            "can" => "admin.users.create",
 
             'submenu' => [
 

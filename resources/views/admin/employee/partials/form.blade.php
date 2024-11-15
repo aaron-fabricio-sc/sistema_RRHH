@@ -214,7 +214,7 @@
 
 
 
-   <div class="form-group m-2">
+{{--    <div class="form-group m-2">
        {!! Form::label('department_id', 'Departamento de trabajo:* ') !!}
 
 
@@ -224,7 +224,7 @@
        @error('department_id')
            <span class="text-danger">{{ $message }}</span>
        @enderror
-   </div>
+   </div> --}}
 
    <div class="form-group m-2">
        {!! Form::label('contract_id ', 'Tipo de contrato:* ') !!}

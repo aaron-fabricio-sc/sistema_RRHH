@@ -8,6 +8,25 @@ use App\Models\Settings;
 
 class SettingsContoller extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function __construct()
+    {
+        $this->middleware("can:admin.users.create")->only("index");
+        $this->middleware("can:admin.users.create")->only("getViewSettingsCompany");
+        $this->middleware("can:admin.jobs.create")->only("create");
+        $this->middleware("can:admin.jobs.show")->only("show");
+        $this->middleware("can:admin.jobs.store")->only("store");
+        $this->middleware("can:admin.users.create")->only("update");
+        $this->middleware("can:admin.jobs.destroy")->only("destroy");
+        $this->middleware("can:admin.jobs.viewConfirmDelete")->only("viewConfirmDelete");
+        $this->middleware("can:admin.jobs.inactive")->only("inactive");
+        $this->middleware("can:admin.jobs.inactivate")->only("inactivate");
+        $this->middleware("can:admin.jobs.activate")->only("activate");
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -89,9 +108,7 @@ class SettingsContoller extends Controller
         //
     }
 
-    public function viewSettingsHours()
-    {
-    }
+    public function viewSettingsHours() {}
 
     public function getViewSettingsCompany()
     {

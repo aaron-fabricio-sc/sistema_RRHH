@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Attendances;
 use App\Models\CiExtension;
 use App\Models\Contract;
 use App\Models\Contracts;
@@ -37,7 +38,28 @@ class DatabaseSeeder extends Seeder
             "email" => 'aaron@aaron.com',
             "password" => bcrypt(123456)
         ])->assignRole("super_admin");
-        User::factory(10)->create();
+
+        User::create([
+            "name" => 'José Luis Hernández',
+            "email" => 'jose@hernandez.com',
+            "password" => bcrypt(123456)
+        ])->assignRole("super_admin");
+        User::create([
+            "name" => 'Rolando Clavijo',
+            "email" => 'rolando@clavijo.com',
+            "password" => bcrypt(123456)
+        ])->assignRole("manager");
+        User::create([
+            "name" => 'Catering Salazar',
+            "email" => 'catering@salazar.com',
+            "password" => bcrypt(123456)
+        ])->assignRole("manager");
+        User::create([
+            "name" => 'Carlos Torrez',
+            "email" => 'carlos@torrez.com',
+            "password" => bcrypt(123456)
+        ])->assignRole("employee");
+        // User::factory(20)->create();
 
         //Departament::factory(30)->create();
         $this->call(DepartamentSeeder::class);
@@ -49,11 +71,15 @@ class DatabaseSeeder extends Seeder
 
         // License::factory(10)->create();
 
-        News::factory(10)->create();
+        // News::factory(10)->create();
+
+        $this->call(NewsSeeder::class);
 
         $this->call(settingsSeeder::class);
 
         // Employee::factory(50)->create();
         $this->call(EmployeeSeeder::class);
+        $this->call(LicenseSeeder::class);
+        $this->call(AttendancesSeeder::class);
     }
 }

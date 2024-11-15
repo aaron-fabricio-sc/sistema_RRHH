@@ -207,7 +207,7 @@ class LicenseController extends Controller
 
 
         if (!$employee) {
-            return redirect()->route("admin.licenses.index")->with("message-danger", "No estas vinculado a un usuario.");
+            return redirect()->route("admin.licenses.requetsView")->with("message-danger", "No estas vinculado a un Empleado.");
         } else if ($days > $maxDays) {
             return redirect()->route("admin.licenses.requetsView")->with("message-danger", "No puede sobrepasar los dias maximos de licencias.");
         } else {

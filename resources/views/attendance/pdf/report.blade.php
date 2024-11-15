@@ -220,6 +220,10 @@
             font-size: 22px;
 
         }
+
+        .detalle {
+            margin: 10px 0;
+        }
     </style>
 </head>
 
@@ -247,7 +251,7 @@
 
     <div class="container">
 
-        <h3>Reporte de asistencia del o la empleado/a
+        <h3 class="detalle">Reporte de asistencia del o la empleado/a
         </h3>
         <h1>{{ $employee->name }} {{ $employee->firts_last_name }}
             {{ $employee->second_last_name }}</h1>
@@ -304,6 +308,8 @@
                     <th>Fecha</th>
                     <th>Entrada</th>
                     <th>Salida</th>
+                    <th>Detalle</th>
+
 
                 </tr>
 
@@ -330,6 +336,7 @@
 
 
                         <td>{{ $attendance->salida }}</td>
+                        <td>{{ $attendance->tipo_asistencia }}</td>
                     </tr>
                 @endforeach
 

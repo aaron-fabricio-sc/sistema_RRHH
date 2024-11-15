@@ -9,99 +9,104 @@
 @section('content')
     <h4 class="text-info">Lista de los empleados inactivos</h4>
 
-    <div class="card p-3">
-        @if (session('message'))
-            <div class="alert alert-success">
-                <strong>{{ session('message') }}</strong>
-            </div>
-        @endif
-        @if (session('message-danger'))
-            <div class="alert alert-danger">
-                <strong>{{ session('message-danger') }}</strong>
-            </div>
-        @endif
+    <div class="card fondo">
 
-        <div class="card-blue">
-            @include('admin.employee.partials.nav')
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped tabla-color " id="employees">
-                            <thead>
+        <div class="overley">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    <strong>{{ session('message') }}</strong>
+                </div>
+            @endif
+            @if (session('message-danger'))
+                <div class="alert alert-danger">
+                    <strong>{{ session('message-danger') }}</strong>
+                </div>
+            @endif
+
+            <div class="card-blue">
+                @include('admin.employee.partials.nav')
+
+
+                <div class="table-responsive">
+                    <table class="table table-striped" id="employees">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Primer Apellido</th>
+                                <th>Segundo Apellido</th>
+
+
+                                <th>Estado</th>
+
+                                <th>Curriculum</th>
+
+
+                                @can('admin.employees.activate')
+                                    <th class="text-info">Reestablecer</th>
+                                @endcan
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($employees as $employee)
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Primer Apellido</th>
-                                    <th>Segundo Apellido</th>
-                                    <th>Departamento </th>
-
-                                    <th>Estado</th>
-
-                                    <th>Curriculum</th>
+                                    <td>{{ $employee->name }}</td>
+                                    <td>{{ $employee->firts_last_name }}</td>
+                                    <td>{{ $employee->second_last_name }}</td>
 
 
-                                    @can('admin.employees.activate')
-                                        <th class="text-info">Reestablecer</th>
-                                    @endcan
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
-                                    <tr>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->firts_last_name }}</td>
-                                        <td>{{ $employee->second_last_name }}</td>
-                                        @if (!$employee->department)
-                                            <td><small class="text-danger">Vacio</small></td>
+                                    <td>
+                                        <b class="text-danger">Inactivo</b>
+                                    </td>
+                                    <td>
+                                        @if ($employee->cv == null)
+                                            <b class="text-danger">Sin CV</b>
                                         @else
-                                            <td>{{ $employee->department->name }}</td>
-                                        @endif
-
-                                        <td>
-                                            <b class="text-danger">Inactivo</b>
-                                        </td>
-                                        <td>
                                             <a href="/archivos/{{ $employee->cv }}" target="_blank"
                                                 class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                                        @endif
+
+                                    </td>
+                                    @can('admin.employees.activate')
+                                        <td>
+
+                                            <a class="btn btn-info btn-sm m-1"
+                                                href="{{ route('admin.employees.activate', $employee) }}"><i
+                                                    class="fas fa-clipboard-check"></i></a>
+
+
+
                                         </td>
-                                        @can('admin.employees.activate')
-                                            <td>
-
-                                                <a class="btn btn-info btn-sm m-1"
-                                                    href="{{ route('admin.employees.activate', $employee) }}"><i
-                                                        class="fas fa-clipboard-check"></i></a>
-
-
-
-                                            </td>
-                                        @endcan
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Primer Apellido</th>
-                                    <th>Segundo Apellido</th>
-                                    <th>Departamento </th>
-
-                                    <th>Estado</th>
-                                    <th>Curriculum</th>
-                                    <th>Acciones</th>
-
+                                    @endcan
 
                                 </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
 
+                        <tfoot>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Primer Apellido</th>
+                                <th>Segundo Apellido</th>
+
+
+                                <th>Estado</th>
+                                <th>Curriculum</th>
+                                <th>Acciones</th>
+
+
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            </div>
 
+
+
+
+            </div>
         </div>
+
     </div>
 
 

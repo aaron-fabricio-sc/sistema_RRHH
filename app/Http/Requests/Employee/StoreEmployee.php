@@ -29,14 +29,14 @@ class StoreEmployee extends FormRequest
             "birthdate" => "required",
             "gender" => "required",
             "phone" => "required",
-            "email" => "required",
+
             "type_document" => "required",
             "document_number" => "required",
 
             "ci_extension_id" => "required",
             "address_1" => "required",
             "start_date" => "required",
-            "department_id" => "required",
+
             "contract_id" => "required",
             "job_id" => "required",
 

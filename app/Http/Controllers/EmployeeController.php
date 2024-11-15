@@ -101,7 +101,7 @@ class EmployeeController extends Controller
         $employee->previous_work_details = $request->previous_work_details;
         $employee->start_date = $request->start_date;
         $employee->additional_employee_details = $request->additional_employee_details;
-        $employee->department_id = $request->department_id;
+
 
         $employee->contract_id = $request->contract_id;
         $employee->job_id = $request->job_id;
@@ -236,7 +236,7 @@ class EmployeeController extends Controller
 
 
 
-        $employee->department_id = $request->department_id;
+        // $employee->department_id = $request->department_id;
 
         $employee->contract_id = $request->contract_id;
         $employee->job_id = $request->job_id;
@@ -297,7 +297,7 @@ class EmployeeController extends Controller
 
             $employee->update();
 
-            return redirect()->route("admin.employees.viewVacations", ['employee_id' => $employee->id])->with("message", "Las vacaciones se actualizaron correctamente.");
+            return redirect()->route("admin.employees.viewVacations", ['employee' => $employee->id])->with("message", "Las vacaciones se actualizaron correctamente.");
         }
     }
     /**
@@ -403,15 +403,13 @@ class EmployeeController extends Controller
     {
 
 
-
-
-
-
         $employee = Employee::find($id);
         $ci = CiExtension::find($employee->ci_extension_id);
-        $department = Departament::find($employee->department_id);
+
         $contract = Contract::find($employee->contract_id);
         $job = Job::find($employee->job_id);
+        $department = $job->departament;
+
         if ($employee->user_id) {
             $user = User::find($employee->user_id);
         } else {

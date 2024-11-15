@@ -15,7 +15,7 @@
     <h4 class="text-info">Noticias</h4>
     <div class="card fondo">
 
-        <div class="overley">
+        <div class="overley ">
             @if (session('message'))
                 <div class="alert alert-success">
                     <strong>{{ session('message') }}</strong>
@@ -31,8 +31,8 @@
                 <h2>NO HAY DATOS...</h2>
             @endif
             @foreach ($News as $new)
-                <div class="card-blue border-b-2 borde_noticias">
-                    <div class="d-flex justify-content-between">
+                <div class="card-blue py-5  border-b-2 borde_noticias">
+                    <div class="d-flex  justify-content-between">
                         <p><span class="text-success">Fecha de publicacion: </span>{{ $new->created_at }}</p>
 
 
@@ -74,14 +74,10 @@
                     <h2>{{ $new->title }}</h2>
 
                     <div>
-                        @php
-                            echo htmlspecialchars_decode($new->body);
-                        @endphp
+
+                        {{ $new->body }};
+
                     </div>
-
-
-
-
 
                 </div>
             @endforeach

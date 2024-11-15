@@ -7,8 +7,8 @@
     @endcan
     @can('attendaces.pdf.list')
         <div class="">
-            <a class="btn btn-info btn-sm my-2" href="{{ route('attendances.reports') }}"> <i class="fas fa-file"><span
-                        class="ml-1">Generar Reporte</span></i></a>
+            <a class="btn btn-info btn-sm my-2" href="{{ route('attendances.reports') }}" target="_blank"> <i
+                    class="fas fa-file"><span class="ml-1">Generar Reporte</span></i></a>
         </div>
     @endcan
 

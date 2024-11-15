@@ -297,8 +297,7 @@
 
 
                     @can('admin.employees.viewAssignUser')
-                        <a href="{{ route('admin.employees.viewAssignUser', $employee) }}"
-                            class="btn btn-warning mx-1">Assignar
+                        <a href="{{ route('admin.employees.viewAssignUser', $employee) }}" class="btn btn-warning mx-1">Asignar
                             Usuario</a>
                     @endcan
 

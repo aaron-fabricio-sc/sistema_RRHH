@@ -33,9 +33,9 @@
 @stop
 
 @section('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script> --}}
 
-    <script>
+    {{-- <script>
         ClassicEditor
             .create(document.querySelector('#body'))
             .then(editor => {
@@ -45,6 +45,6 @@
                 console.error(error);
             });
     </script>
-
+ --}}
 
 @stop

@@ -11,10 +11,21 @@
       </div>
 
 
-      <div class="form-group" id="textoPlugin">
+      {{--   <div class="form-group" id="textoPlugin">
           {!! Form::label('body', 'Descripción: ') !!}
           {!! Form::textarea('body', null, [
               'class' => 'textoPlugin',
+              'placeholder' => 'ingrese una descripción',
+          ]) !!}
+          @error('body')
+              <span class="text-danger">{{ $message }}</span>
+          @enderror
+      </div> --}}
+
+      <div class="form-group">
+          {!! Form::label('body', 'Descripción: ') !!}
+          {!! Form::textarea('body', null, [
+              'class' => 'textarea w-50',
               'placeholder' => 'ingrese una descripción',
           ]) !!}
           @error('body')

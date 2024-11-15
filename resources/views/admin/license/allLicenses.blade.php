@@ -34,6 +34,8 @@
                         <tr>
                             <th>Nº</th>
                             <th>Empleado</th>
+                            <th>Documento</th>
+
                             <th>Tipo de licencia</th>
                             <th>Detalles de licencia</th>
                             <th>Dias de licencia</th>
@@ -90,6 +92,8 @@
                                 @endphp
 
                                 <td>{{ $employee->name }}</td>
+                                <td>{{ $employee->document_number }}</td>
+
                                 <td>{{ $licenseDB->type_license }}</td>
                                 <td>{{ $licenseDB->description }}</td>
                                 <td>{{ $license->days }}</td>
@@ -150,6 +154,7 @@
                         <tr>
                             <th>Nº</th>
                             <th>Empleado</th>
+                            <th>Documento</th>
 
                             <th>Tipo de Licencia</th>
                             <th>Descripción</th>

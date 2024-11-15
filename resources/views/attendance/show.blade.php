@@ -32,15 +32,15 @@
                     <thead>
                         <tr>
                             <th>Nº</th>
-                            <th>Nombre</th>
-                            <th>Primer Apellido</th>
-                            <th>Segundo Apellido</th>
+                            <th>Nombre Completo</th>
+                            <th>CI</th>
+
 
                             <th>Asistencia</th>
                             <th>Fecha</th>
                             <th class="text-info">Entrada</th>
                             <th class="text-danger">Salida</th>
-                            <th>Reportes</th>
+
 
 
 
@@ -52,42 +52,32 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td class="">
-                                    {{ $attendance->employee->name }}
+                                    {{ $attendance->employee->name }} {{ $attendance->employee->firts_last_name }}
+                                    {{ $attendance->employee->second_last_name }}
                                 </td>
 
-                                <td>{{ $attendance->employee->firts_last_name }}</td>
-                                <td>{{ $attendance->employee->second_last_name }}</td>
+                                <td>{{ $attendance->employee->document_number }}</td>
 
 
 
-                                @php
-                                    if ($attendance->asistencia === 1) {
-                                        $asistencia = 'Presente';
-                                    } else {
-                                        $asistencia = 'Falta';
-                                    }
-                                @endphp
-
-                                @if ($asistencia === 'Presente')
-                                    <td class="text-success"> <b>{{ $asistencia }}</b> </td>
-                                @else
-                                    <td class="text-danger"> <b>{{ $asistencia }}</b> </td>
+                                @if ($attendance->tipo_asistencia === 'Temprano')
+                                    <td class="text-info"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
+                                @elseif($attendance->tipo_asistencia === 'Puntual')
+                                    <td class="text-success"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
+                                @elseif($attendance->tipo_asistencia === 'Tarde')
+                                    <td class="text-danger"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
                                 @endif
-
 
 
                                 @php
                                     $date = $attendance->fecha;
-                                    
+
                                     $newDate = date('d-m-Y', strtotime($date));
                                 @endphp
                                 <td>{{ $newDate }}</td>
                                 <td>{{ $attendance->entrada }}</td>
                                 <td>{{ $attendance->salida }}</td>
 
-                                <td><a class="btn btn-info"
-                                        href="{{ route('attendances.show', $attendance->employee_id) }}"><i
-                                            class="fas fa-eye"></i></a></td>
 
 
 
@@ -116,15 +106,13 @@
                     <tfoot>
                         <tr>
                             <th>Nº</th>
-                            <th>Nombre</th>
-                            <th>Primer Apellido</th>
-                            <th>Segundo Apellido</th>
-
+                            <th>Nombre Completo</th>
+                            <th>CI</th>
                             <th>Asistencia</th>
                             <th>Fecha</th>
                             <th class="text-info">Entrada</th>
                             <th class="text-danger">Salida</th>
-                            <th>Ver más</th>
+
                         </tr>
                     </tfoot>
                 </table>

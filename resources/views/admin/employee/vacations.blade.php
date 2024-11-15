@@ -31,7 +31,13 @@
                 ]) !!}
                 <div class=" m-2">
                     {!! Form::label('', 'Dias maximos de vacación ') !!}
-                    <h4 class="">{{ $employee->days_vacations }}</h4>
+
+                    @if ($employee->days_vacations === null)
+                        <h3 class="text-danger">Para conocer la cantidad de días, actualice los datos del empleado.</h3>
+                    @else
+                        <h4 class="">{{ $employee->days_vacations }}</h4>
+                    @endif
+
                 </div>
                 <div></div>
                 <div class=" m-2">
@@ -60,21 +66,29 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
-                </div>
-
+                @if ($employee->days_vacations === null)
+                @else
+                    <div class="form-group">
+                        {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                @endif
                 {!! Form::close() !!}
+                @if ($employee->days_vacations !== null)
+                    {!! Form::model($employee, [
+                        'route' => ['admin.employees.resetVacations', $employee],
+                        'method' => 'put',
+                        'files' => true,
+                    ]) !!}
+                    <div class="form-group">
+                        {!! Form::submit('Resetear Vacaciones', ['class' => 'btn btn-danger']) !!}
+                    </div>
+                    {!! Form::close() !!}
+                @endif
 
-                {!! Form::model($employee, [
-                    'route' => ['admin.employees.resetVacations', $employee],
-                    'method' => 'put',
-                    'files' => true,
-                ]) !!}
-                <div class="form-group">
-                    {!! Form::submit('Resetear Vacaciones', ['class' => 'btn btn-danger']) !!}
-                </div>
-                {!! Form::close() !!}
+
+
+
+
 
             </div>
         </div>

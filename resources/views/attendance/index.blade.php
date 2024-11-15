@@ -57,25 +57,20 @@
                                 <td>{{ $attendance->employee->name }}</td>
 
 
-                                @php
-                                    if ($attendance->asistencia === 1) {
-                                        $asistencia = 'Presente';
-                                    } else {
-                                        $asistencia = 'Falta';
-                                    }
-                                @endphp
 
-                                @if ($asistencia === 'Presente')
-                                    <td class="text-success"> <b>{{ $asistencia }}</b> </td>
-                                @else
-                                    <td class="text-danger"> <b>{{ $asistencia }}</b> </td>
+                                @if ($attendance->tipo_asistencia === 'Temprano')
+                                    <td class="text-info"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
+                                @elseif($attendance->tipo_asistencia === 'Puntual')
+                                    <td class="text-success"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
+                                @elseif($attendance->tipo_asistencia === 'Tarde')
+                                    <td class="text-danger"> <b>{{ $attendance->tipo_asistencia }}</b> </td>
                                 @endif
 
 
 
                                 @php
                                     $date = $attendance->fecha;
-                                    
+
                                     $newDate = date('d-m-Y', strtotime($date));
                                 @endphp
                                 <td>{{ $newDate }}</td>

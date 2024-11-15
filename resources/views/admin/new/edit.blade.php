@@ -28,7 +28,7 @@
             </div>
 
 
-            <div class="form-group" id="textoPlugin">
+            {{--      <div class="form-group" id="textoPlugin">
                 {!! Form::label('body', 'Descripción: ') !!}
                 {!! Form::textarea('body', null, [
                     'class' => 'textoPlugin',
@@ -37,7 +37,19 @@
                 @error('body')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
+            </div> --}}
+
+            <div class="form-group">
+                {!! Form::label('body', 'Descripción: ') !!}
+                {!! Form::textarea('body', null, [
+                    'class' => 'textarea w-50',
+                    'placeholder' => 'ingrese una descripción',
+                ]) !!}
+                @error('body')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
+
 
             <div>
                 {!! Form::label('user_id', 'Editor de la noticia: ') !!}
@@ -67,7 +79,7 @@
 @stop
 
 @section('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+    {{--  <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
 
     <script>
         ClassicEditor
@@ -78,7 +90,7 @@
             .catch(error => {
                 console.error(error);
             });
-    </script>
+    </script> --}}
 
 
 @stop
