@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::label('final_date', 'Fecha de inicio:') !!}
+                {!! Form::label('final_date', 'Fecha final:') !!}
                 {!! Form::date('final_date', null, [
                     'class' => 'textarea w-50',
                 ]) !!}

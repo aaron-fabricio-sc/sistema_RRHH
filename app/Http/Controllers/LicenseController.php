@@ -184,6 +184,9 @@ class LicenseController extends Controller
 
         $start = new DateTime($start_date);
         $end = new DateTime($final_date);
+        if ($end < $start) {
+            return redirect()->route("admin.licenses.requetsView")->with("message-danger", "La fecha final es menor que la fecha inicial.");
+        }
         $end->modify('+1 day'); // Incluir el día final en el cálculo
 
         $interval = new DateInterval('P1D');
